@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maurizio & Antonella — Il nostro Matrimonio</title>
+  <!-- Google Fonts per un tocco elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #5c6b57; /* Verde salvia */
+      --accent: #d4af37;  /* Oro tenue */
+      --bg: #faf8f5;      /* Bianco caldo */
+      --text: #2c2c2c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+    }
+
+    /* Hero Banner */
+    header {
+      padding: 100px 20px 80px;
+      background-color: #f2eee9;
+      border-bottom: 1px solid #e0d8ce;
+    }
+    .names {
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .date {
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    /* Sezioni generali */
+    section {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    section h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      margin: 15px auto 0;
+    }
+
+    /* Griglia Dettagli */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 30px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      border: 1px solid #eaeaea;
+    }
+    .card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    /* Form Conferma (RSVP) */
+    form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      border: 1px solid #eaeaea;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+    }
+    label { font-size: 0.9rem; font-weight: 500; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover { background-color: #4a5746; }
+
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      color: #888;
+      border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 600px) {
+      .names { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="names">Marco & Sofia</div>
+    <p>Ci sposiamo!</p>
+    <div class="date" style="margin-top: 20px;">21 Giugno 2027</div>
+  </header>
+
+  <!-- DOVE E QUANDO -->
+  <section id="dettagli">
+    <h2>Dove & Quando</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Cerimonia</h3>
+        <p><strong>Ore 11:00</strong></p>
+        <p>Chiesa di San Pietro</p>
+        <p>Via Roma 1, Milano</p>
+      </div>
+      <div class="card">
+        <h3>Ricevimento</h3>
+        <p><strong>Ore 13:00</strong></p>
+        <p>Villa dei Fiori</p>
+        <p>Via Panoramica 10, Como</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFERMA PRESENZA (RSVP) -->
+  <section id="rsvp">
+    <h2>Conferma la tua Presenza</h2>
+    <p style="margin-bottom: 25px;">Ti preghiamo di confermare entro il 1° Maggio 2027.</p>
+
+    <!-- SOSTITUISCI L'URL ACTION CON IL TUO ENDPOINT FORMSPREE -->
+    <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
+      <div>
+        <label for="nome">Nome e Cognome</label>
+        <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
+      </div>
+      <div>
+        <label for="partecipazione">Parteciperai?</label>
+        <select id="partecipazione" name="partecipazione" required>
+          <option value="Sì, ci sarò!">Sì, ci sarò con piacere!</option>
+          <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
+        </select>
+      </div>
+      <div>
+        <label for="note">Allergie, intolleranze o menu speciali?</label>
+        <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
+      </div>
+      <button type="submit">Invia Conferma</button>
+    </form>
+  </section>
+
+  <!-- LISTA NOZZE / REGALO -->
+  <section id="regalo">
+    <h2>Lista Nozze</h2>
+    <p>Il regalo più bello sarà la tua presenza. Se desideri contribuire al nostro viaggio di nozze:</p>
+    <div class="card" style="margin-top: 20px;">
+      <p><strong>IBAN:</strong> IT00 X000 0000 0000 0000 0000 000</p>
+      <p><strong>Causale:</strong> Viaggio di Nozze Marco e Sofia</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Non vediamo l'ora di festeggiare insieme a voi!</p>
+  </footer>
+
+</body>
+</html>
