@@ -20,11 +20,25 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      text-align: center;
+      background-color: #fcfbf9; /* Un colore di sfondo avorio/chiaro che si abbina all'immagine */
+      margin: 0;
+      padding: 20px;            /* Crea un margine esterno per lasciare respirare la cornice */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Cornice generale che avvolge tutto il sito */
+    .wedding-frame {
+      position: relative;
+      width: 100%;
+      max-width: 800px; /* Regola la larghezza massima del sito dentro la cornice */
+      background-image: url('cornice.png'); /* Sostituisci con il nome esatto della tua immagine */
+      background-repeat: no-repeat;
+      background-size: 100% 100%; /* Adatta la cornice esattamente alle dimensioni del contenuto */
+      padding: 60px 40px;       /* Spaziatura interna per evitare che i testi tocchino i bordi della cornice */
+      box-sizing: border-box;
     }
     
     h1, h2, h3 {
