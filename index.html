@@ -148,19 +148,40 @@
   <!-- DOVE E QUANDO -->
   <section id="dettagli">
     <h2>Dove & Quando</h2>
-    <div class="grid">
-      <div class="card">
+    
+    <!-- Contenitore a singola colonna per disporre i riquadri uno sotto l'altro -->
+    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+      
+      <!-- RIQUADRO CERIMONIA -->
+      <div class="card" style="width: 100%; max-width: 500px;">
         <h3>Cerimonia</h3>
         <p><strong>Ore 10:30</strong></p>
-        <p>Chiesa Madre di San Giacomo Maggiore Apostolo</p>
+        <p style="margin-top: 10px;"><strong>Chiesa Madre di San Giacomo Maggiore Apostolo</strong></p>
         <p>Corso Umberto I, 1 - San Valentino Torio (SA)</p>
+        
+        <!-- Pulsante Google Maps Cerimonia -->
+        <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
+          <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+            📍 Apri indicazioni in Google Maps
+          </button>
+        </a>
       </div>
-      <div class="card">
+
+      <!-- RIQUADRO RICEVIMENTO -->
+      <div class="card" style="width: 100%; max-width: 500px;">
         <h3>Ricevimento</h3>
         <p><strong>Ore 13:00</strong></p>
-        <p>Villa Vittoria</p>
+        <p style="margin-top: 10px;"><strong>Villa Vittoria</strong></p>
         <p>Via Cifelli, 44 - Boscotrecase (NA)</p>
+        
+        <!-- Pulsante Google Maps Ricevimento -->
+        <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
+          <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+            📍 Apri indicazioni in Google Maps
+          </button>
+        </a>
       </div>
+
     </div>
   </section>
 
@@ -192,17 +213,43 @@
 
   <!-- LISTA NOZZE / REGALO -->
   <section id="regalo">
-    <h2>Lista Nozze</h2>
-    <p>Il regalo più bello sarà la tua presenza. Se desideri contribuire al nostro viaggio di nozze:</p>
-    <div class="card" style="margin-top: 20px;">
-      <p><strong>IBAN:</strong> IT00 X000 0000 0000 0000 0000 000</p>
-      <p><strong>Causale:</strong> Viaggio di Nozze Maurizio e Antonella</p>
+    <p>Il regalo più bello sarà la tua presenza.</p>
+    <p>Non vediamo l'ora di festeggiare insieme a voi.</p>
+    <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <p>
+        <strong>IBAN:</strong> 
+        <span id="iban-text" style="user-select: all; font-family: monospace; font-size: 1.05rem;">IT00 X000 0000 0000 0000 0000 000</span>
+      </p>
+      
+      <!-- Pulsante per copiare l'IBAN -->
+      <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
+        📋 Copia IBAN
+      </button>
+
+      <p style="margin-top: 5px;"><strong>Causale:</strong> Viaggio di Nozze Maurizio e Antonella</p>
     </div>
   </section>
 
-  <footer>
-    <p>Non vediamo l'ora di festeggiare insieme a voi!</p>
-  </footer>
-
+  <!-- Script JavaScript per la funzionalità di copia -->
+  <script>
+    function copiaIBAN() {
+      // Sostituisci questo testo con il tuo IBAN reale (senza spazi per facilitare il incolla)
+      const ibanValore = "IT00X0000000000000000000000"; 
+      
+      navigator.clipboard.writeText(ibanValore).then(() => {
+        const btn = document.getElementById("btn-copia");
+        btn.innerText = "✅ Copiato!";
+        btn.style.backgroundColor = "#4a5746";
+        
+        setTimeout(() => {
+          btn.innerText = "📋 Copia IBAN";
+          btn.style.backgroundColor = "var(--primary)";
+        }, 2000);
+      }).catch(err => {
+        console.error("Errore durante la copia: ", err);
+      });
+    }
+  </script>
+  
 </body>
 </html>
