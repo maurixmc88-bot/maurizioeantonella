@@ -20,30 +20,26 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
-      background-color: var(--bg);
+      background-color: #fcfbf9;
       margin: 0;
-      /* Padding per far "respirare" i testi rispetto ai bordi dello schermo */
-      padding: 30px;
+      padding: 20px;
       display: flex;
       justify-content: center;
       min-height: 100vh;
       font-family: 'Montserrat', sans-serif;
     }
 
-    /* --- IL CUORE DELLA MODIFICA: La Cornice Sovrapposta --- */
-    .wedding-frame-overlay {
-      position: fixed;   /* FISSA sullo schermo */
-      top: 0;
-      left: 0;
-      width: 100vw;     /* Tutta la larghezza della finestra */
-      height: 100vh;    /* Tutta l'altezza della finestra */
-      /* Sostituisci url('cornice.png') con il percorso esatto della tua immagine */
+    /* La cornice ora fa da sfondo al contenitore dei contenuti */
+    .wedding-frame {
+      width: 100%;
+      max-width: 850px;
       background-image: url('cornice.png');
       background-repeat: no-repeat;
-      background-size: cover;       /* Copre l'intero schermo */
-      background-position: center;  /* Centrata */
-      z-index: 1000;                /* Sopra a TUTTO il resto */
-      pointer-events: none;         /* Permette di cliccare attraverso l'immagine sui pulsanti sotto */
+      background-size: 100% 100%;
+      padding: 90px 60px; /* Spaziatura interna per far stare i testi dentro la cornice */
+      box-sizing: border-box;
+      background-color: #ffffff; /* Sfondo bianco interno per la massima leggibilità */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     /* Contenitore generale del sito che scorre SOTTO la cornice */
