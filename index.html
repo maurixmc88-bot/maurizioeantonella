@@ -136,9 +136,6 @@
       border-top: 1px solid #eee;
     }
 
-    @media (max-width: 600px) {
-      .names { font-size: 2.5rem; }
-    }
     /* Stile per il Countdown */
     .countdown-container {
       display: flex;
@@ -170,6 +167,29 @@
       color: #666;
       margin-top: 5px;
     }
+
+    /* Adattamento per dispositivi mobili */
+    @media (max-width: 600px) {
+      .names { font-size: 2.5rem; }
+
+      /* Allineamento perfetto del Countdown su un'unica riga per smartphone */
+      .countdown-container {
+        gap: 6px;
+        flex-wrap: nowrap; /* Impedisce di andare a capo */
+      }
+      .countdown-box {
+        min-width: 0;
+        flex: 1; /* Distribuisce uniformemente i 4 riquadri */
+        padding: 10px 4px;
+      }
+      .countdown-number {
+        font-size: 1.5rem;
+      }
+      .countdown-label {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -182,29 +202,29 @@
   </header>
   
   <!-- COUNTDOWN -->
-    <section style="padding: 20px 20px 40px; text-align: center;">
-      <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; color: #777; margin-bottom: 15px;">Mancano solo:</p>
-      <div class="countdown-container">
-        <div class="countdown-box">
-          <span id="days" class="countdown-number">00</span>
-          <span class="countdown-label">Giorni</span>
-        </div>
-        <div class="countdown-box">
-          <span id="hours" class="countdown-number">00</span>
-          <span class="countdown-label">Ore</span>
-        </div>
-        <div class="countdown-box">
-          <span id="minutes" class="countdown-number">00</span>
-          <span class="countdown-label">Minuti</span>
-        </div>
-        <div class="countdown-box">
-          <span id="seconds" class="countdown-number">00</span>
-          <span class="countdown-label">Secondi</span>
-        </div>
+  <section style="padding: 20px 20px 40px; text-align: center;">
+    <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; color: #777; margin-bottom: 15px;">Mancano solo:</p>
+    <div class="countdown-container">
+      <div class="countdown-box">
+        <span id="days" class="countdown-number">00</span>
+        <span class="countdown-label">Giorni</span>
       </div>
-    </section>
+      <div class="countdown-box">
+        <span id="hours" class="countdown-number">00</span>
+        <span class="countdown-label">Ore</span>
+      </div>
+      <div class="countdown-box">
+        <span id="minutes" class="countdown-number">00</span>
+        <span class="countdown-label">Minuti</span>
+      </div>
+      <div class="countdown-box">
+        <span id="seconds" class="countdown-number">00</span>
+        <span class="countdown-label">Secondi</span>
+      </div>
+    </div>
+  </section>
 
-<!-- DOVE E QUANDO -->
+  <!-- DOVE E QUANDO -->
   <section id="dettagli">
     <h2>Dove & Quando</h2>
     
@@ -283,7 +303,7 @@
       <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
         📋 Copia IBAN
       </button>
-      <!-- Intestato a (Spostato leggermente più in basso con margin-top) -->
+      <!-- Intestato a -->
       <p style="font-size: 0.95rem; color: #444; margin-top: 10px;">
         Intestato a: Maurizio Rosa & Antonella Raffone
       </p>
