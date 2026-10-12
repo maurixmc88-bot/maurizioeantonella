@@ -13,32 +13,47 @@
     :root {
       --primary: #5c6b57; /* Verde salvia */
       --accent: #d4af37;  /* Oro tenue */
-      --bg: #faf8f5;      /* Bianco caldo */
+      --bg: #fcfbf9;      /* Bianco caldo/avorio per lo sfondo */
       --text: #2c2c2c;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
-      background-color: #fcfbf9;
+      background-color: var(--bg);
       margin: 0;
-      padding: 30px 15px;
+      /* Padding per far "respirare" i testi rispetto ai bordi dello schermo */
+      padding: 30px;
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
     }
 
-    /* Cornice generale che avvolge tutto il sito */
-    .wedding-frame {
-      width: 100%;
-      max-width: 850px;
-      background-image: url('cornice.png'); /* Assicurati che il nome corrisponda all'immagine */
+    /* --- IL CUORE DELLA MODIFICA: La Cornice Sovrapposta --- */
+    .wedding-frame-overlay {
+      position: fixed;   /* FISSA sullo schermo */
+      top: 0;
+      left: 0;
+      width: 100vw;     /* Tutta la larghezza della finestra */
+      height: 100vh;    /* Tutta l'altezza della finestra */
+      /* Sostituisci url('cornice.png') con il percorso esatto della tua immagine */
+      background-image: url('cornice.png');
       background-repeat: no-repeat;
-      background-size: 100% 100%;
-      padding: 80px 50px;
-      box-sizing: border-box;
-      background-color: #fff; /* Sfondo bianco interno alla cornice per leggibilità */
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      background-size: cover;       /* Copre l'intero schermo */
+      background-position: center;  /* Centrata */
+      z-index: 1000;                /* Sopra a TUTTO il resto */
+      pointer-events: none;         /* Permette di cliccare attraverso l'immagine sui pulsanti sotto */
+    }
+
+    /* Contenitore generale del sito che scorre SOTTO la cornice */
+    .main-wrapper {
+      width: 100%;
+      max-width: 750px; /* Larghezza massima più contenuta per "stare dentro" la cornice */
+      position: relative;
+      z-index: 1; /* Sotto l'overlay della cornice */
+      margin-top: 80px; /* Spazio in alto per non finire sotto le foglie */
+      margin-bottom: 80px; /* Spazio in basso */
     }
     
     h1, h2, h3 {
@@ -55,7 +70,7 @@
 
     /* Hero Banner */
     header {
-      padding: 40px 20px 40px;
+      padding: 0px 20px 40px;
       text-align: center;
     }
     .names {
@@ -160,15 +175,30 @@
       text-align: center;
     }
 
+    /* Regole per smartphone */
     @media (max-width: 600px) {
-      .wedding-frame { padding: 30px 15px; }
+      body { padding: 15px; }
+      .wedding-frame-overlay {
+        /* Rimpiccioliamo leggermente la cornice su smartphone per lasciare più spazio al testo */
+        background-size: 90% 90%;
+        background-position: center;
+      }
+      .main-wrapper {
+        margin-top: 60px; /* Riduciamo i margini in alto */
+        max-width: 100%;
+      }
       .names { font-size: 3rem; }
+      .date { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="wedding-frame">
+  <!-- QUESTA È LA CORNICE FISSA TRASPARENTE SOVRAPPOSTA -->
+  <div class="wedding-frame-overlay"></div>
+
+  <!-- QUESTO È IL CONTENITORE CHE CONTIENE TUTTO IL SITO E SCORRE SOTTO -->
+  <div class="main-wrapper">
 
     <!-- HERO -->
     <header>
@@ -263,11 +293,12 @@
       </div>
     </section>
 
-  </div> <!-- Chiusura di .wedding-frame -->
+  </div> <!-- Chiusura di .main-wrapper -->
 
   <!-- Script JavaScript per la copia dell'IBAN -->
   <script>
     function copiaIBAN() {
+      // Sostituisci questo testo con il tuo IBAN reale (senza spazi per facilitare il incolla)
       const ibanValore = "IT00X0000000000000000000000"; 
       
       navigator.clipboard.writeText(ibanValore).then(() => {
