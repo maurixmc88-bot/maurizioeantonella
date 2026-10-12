@@ -7,63 +7,89 @@
   <!-- Google Fonts per un tocco elegante -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --primary: #5c6b57; /* Verde salvia */
       --accent: #d4af37;  /* Oro tenue */
-      --bg: #faf8f5;      /* Bianco caldo */
+      --bg: #121212;      /* Sfondo scuro per far risaltare i fiori e la cornice */
       --text: #2c2c2c;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: 'Montserrat', sans-serif;
       background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      text-align: center;
+      margin: 0;
+      padding: 40px 15px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Contenitore principale con la cornice come sfondo */
+    .wedding-frame {
+      width: 100%;
+      max-width: 900px;
+      /* Assicurati che l'immagine della  nella cartella del progetto si chiami esattamete cornice.png */
+      background-image: url('.png'); 
+      background-repeat: no-repeat;
+      background-size: 100% 100%; /* La cornice si adatta perfettamente alla lunghezza della pagina */
+      padding: 110px 70px;        /* Spaziatura per tenere i testi all'interno dell'area scura */
+      box-sizing: border-box;
+      background-color: #000000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    p {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      color: #e0e0e0;
     }
 
     /* Hero Banner */
     header {
-      padding: 100px 20px 80px;
-      background-color: #f2eee9;
-      border-bottom: 1px solid #e0d8ce;
+      padding: 20px 20px 40px;
+      text-align: center;
     }
     .names {
-      font-family: 'Alex Brush', cursive; /* Imposta il font calligrafico Alex Brush */
-      font-size: 4.8rem;                  /* Dimensione abbondante per far risaltare il corsivo */
-      color: var(--primary);
+      font-family: 'Alex Brush', cursive;
+      font-size: 4.8rem;
+      color: #d4af37; /* Colore dorato per far risaltare i nomi sullo sfondo scuro */
       margin-bottom: 10px;
-      text-transform: none;               /* Mantiene maiuscole e minuscole fluide */
+      text-transform: none;
       font-weight: normal;
       line-height: 1.2;
+      text-align: center;
     }
     .date {
       font-size: 1.2rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #666;
-      font-weight: bold; /* Rende la data in grassetto */
+      color: #cccccc;
+      font-weight: bold;
+      text-align: center;
     }
 
     /* Sezioni generali */
     section {
-      padding: 60px 20px;
-      max-width: 800px;
+      padding: 50px 20px;
+      max-width: 700px;
       margin: 0 auto;
+      text-align: center;
     }
     section h2 {
       font-size: 2.5rem;
-      color: var(--primary);
+      color: #d4af37;
       margin-bottom: 20px;
       position: relative;
     }
@@ -76,39 +102,39 @@
       margin: 15px auto 0;
     }
 
-    /* Griglia Dettagli */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
+    /* Card Dettagli */
     .card {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.95); /* Riquadro bianco semi-trasparente per leggibilità */
       padding: 30px 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       border: 1px solid #eaeaea;
+      text-align: center;
+      margin: 0 auto;
     }
     .card h3 {
       font-size: 1.8rem;
       margin-bottom: 10px;
       color: var(--primary);
     }
+    .card p {
+      text-align: center;
+      color: var(--text);
+    }
 
     /* Form Conferma (RSVP) */
     form {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.95);
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       border: 1px solid #eaeaea;
       display: flex;
       flex-direction: column;
       gap: 15px;
       text-align: left;
     }
-    label { font-size: 0.9rem; font-weight: 500; }
+    label { font-size: 0.9rem; font-weight: 500; font-family: 'Montserrat', sans-serif; color: var(--text); }
     input, select, textarea {
       width: 100%;
       padding: 12px;
@@ -125,6 +151,7 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
+      font-family: 'Montserrat', sans-serif;
     }
     button:hover { background-color: #4a5746; }
 
@@ -134,112 +161,115 @@
       font-size: 0.85rem;
       color: #888;
       border-top: 1px solid #eee;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
-      .names { font-size: 2.5rem; }
+      .wedding-frame { padding: 40px 20px; }
+      .names { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <header>
-    <div class="names">Maurizio & Antonella</div>
-    <p>Ci sposiamo!</p>
-    <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
-  </header>
+  <div class="wedding-frame">
 
-<!-- DOVE E QUANDO -->
-  <section id="dettagli">
-    <h2>Dove & Quando</h2>
-    
-    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+    <!-- HERO -->
+    <header>
+      <div class="names">Maurizio & Antonella</div>
+      <p style="color: #ffffff;">Ci sposiamo!</p>
+      <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
+    </header>
+
+    <!-- DOVE E QUANDO -->
+    <section id="dettagli">
+      <h2>Dove & Quando</h2>
       
-      <!-- CERIMONIA -->
-      <div class="card" style="width: 100%; max-width: 500px;">
-        <h3>Cerimonia</h3>
-        <p><strong>Ore 10:30</strong></p>
-        <p style="margin-top: 10px;"><strong>Chiesa Madre di San Giacomo Maggiore Apostolo</strong></p>
-        <p>Corso Umberto I, 1 - San Valentino Torio (SA)</p>
+      <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- Pulsante Unico Universale -->
-        <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
-            📍 Apri Indicazioni Stradali
-          </button>
-        </a>
-      </div>
+        <!-- CERIMONIA -->
+        <div class="card" style="width: 100%; max-width: 500px;">
+          <h3>Cerimonia</h3>
+          <p><strong>Ore 10:30</strong></p>
+          <p style="margin-top: 10px;"><strong>Chiesa Madre di San Giacomo Maggiore Apostolo</strong></p>
+          <p>Corso Umberto I, 1 - San Valentino Torio (SA)</p>
+          
+          <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
+            <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+              📍 Apri Indicazioni Stradali
+            </button>
+          </a>
+        </div>
 
-      <!-- RICEVIMENTO -->
-      <div class="card" style="width: 100%; max-width: 500px;">
-        <h3>Ricevimento</h3>
-        <p><strong>Ore 13:00</strong></p>
-        <p style="margin-top: 10px;"><strong>Villa Vittoria</strong></p>
-        <p>Via Cifelli, 44 - Boscotrecase (NA)</p>
-        
-        <!-- Pulsante Unico Universale -->
-        <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
-            📍 Apri Indicazioni Stradali
-          </button>
-        </a>
-      </div>
+        <!-- RICEVIMENTO -->
+        <div class="card" style="width: 100%; max-width: 500px;">
+          <h3>Ricevimento</h3>
+          <p><strong>Ore 13:00</strong></p>
+          <p style="margin-top: 10px;"><strong>Villa Vittoria</strong></p>
+          <p>Via Cifelli, 44 - Boscotrecase (NA)</p>
+          
+          <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
+            <button type="button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+              📍 Apri Indicazioni Stradali
+            </button>
+          </a>
+        </div>
 
-    </div>
-  </section>
-
-  <!-- CONFERMA PRESENZA (RSVP) -->
-  <section id="rsvp">
-    <h2>Conferma la tua Presenza</h2>
-    <p style="margin-bottom: 25px;">Ti preghiamo di confermare entro il 31 Agosto 2027.</p>
-
-    <!-- SOSTITUISCI L'URL ACTION CON IL TUO ENDPOINT FORMSPREE -->
-    <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
-      <div>
-        <label for="nome">Nome e Cognome</label>
-        <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
       </div>
-      <div>
-        <label for="partecipazione">Parteciperai?</label>
-        <select id="partecipazione" name="partecipazione" required>
-          <option value="Sì, ci sarò!">Sì, ci sarò con piacere!</option>
-          <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
-        </select>
-      </div>
-      <div>
-        <label for="note">Allergie, intolleranze o menu speciali?</label>
-        <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
-      </div>
-      <button type="submit">Invia Conferma</button>
-    </form>
-  </section>
+    </section>
 
-  <!-- LISTA NOZZE / REGALO -->
-  <section id="regalo">
-    <p>Il regalo più bello sarà averti al nostro fianco.</p>
-    <p>Siamo felicissimi di festeggiare questo grande momento insieme!</p>
-    <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-      <p>
-        <strong>IBAN:</strong> 
-        <span id="iban-text" style="user-select: all; font-family: monospace; font-size: 1.05rem;">IT00 X000 0000 0000 0000 0000 000</span>
-      </p>
+    <!-- CONFERMA PRESENZA (RSVP) -->
+    <section id="rsvp">
+      <h2>Conferma la tua Presenza</h2>
+      <p style="margin-bottom: 25px; color: #ffffff;">Ti preghiamo di confermare entro il 31 Agosto 2027.</p>
+
+      <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
+        <div>
+          <label for="nome">Nome e Cognome</label>
+          <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
+        </div>
+        <div>
+          <label for="partecipazione">Parteciperai?</label>
+          <select id="partecipazione" name="partecipazione" required>
+            <option value="Sì, ci sarò!">Sì, ci sarò con piacere!</option>
+            <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
+          </select>
+        </div>
+        <div>
+          <label for="note">Allergie, intolleranze o menu speciali?</label>
+          <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
+        </div>
+        <button type="submit">Invia Conferma</button>
+      </form>
+    </section>
+
+    <!-- LISTA NOZZE / REGALO -->
+    <section id="regalo">
+      <h2>Lista Nozze</h2>
+      <p style="color: #ffffff;">Il regalo più bello sarà averti al nostro fianco.</p>
+      <p style="margin-top: 5px; color: #ffffff;">Siamo felicissimi di festeggiare questo grande momento insieme!</p>
       
-      <!-- Pulsante per copiare l'IBAN -->
-      <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
-        📋 Copia IBAN
-      </button>
-      <!-- Intestato a (Spostato leggermente più in basso con margin-top) -->
-      <p style="font-size: 0.95rem; color: #444; margin-top: 10px;">
-        Intestato a: Maurizio Rosa & Antonella Raffone
-      </p>
-    </div>
-  </section>
+      <div class="card" style="margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 500px;">
+        <p>
+          <strong>IBAN:</strong> 
+          <span id="iban-text" style="user-select: all; font-family: monospace; font-size: 1.05rem;">IT00 X000 0000 0000 0000 0000 000</span>
+        </p>
+        
+        <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
+          📋 Copia IBAN
+        </button>
+        
+        <p style="font-size: 0.95rem; color: #444; margin-top: 10px;">
+          Intestato a: Maurizio Rosa & Antonella Raffone
+        </p>
+      </div>
+    </section>
+
+  </div> <!-- Chiusura di .wedding-frame -->
 
   <!-- Script JavaScript per la funzionalità di copia -->
   <script>
     function copiaIBAN() {
-      // Sostituisci questo testo con il tuo IBAN reale (senza spazi per facilitare il incolla)
       const ibanValore = "IT00X0000000000000000000000"; 
       
       navigator.clipboard.writeText(ibanValore).then(() => {
