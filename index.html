@@ -200,10 +200,77 @@
         letter-spacing: 1px;
       }
     }
+
+    /* Overlay Busta Iniziale */
+    #envelope-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    #envelope-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .envelope-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e0d8ce;
+      text-align: center;
+      max-width: 380px;
+      width: 85%;
+      position: relative;
+    }
+
+    .envelope-seal {
+      width: 70px;
+      height: 70px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto 0;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(92, 107, 87, 0.4);
+      transition: transform 0.3s, background-color 0.3s;
+      font-size: 1.5rem;
+    }
+
+    .envelope-seal:hover {
+      transform: scale(1.08);
+      background-color: #4a5746;
+    }
+    
   </style>
 </head>
 <body>
-
+  <!-- ENVELOPE OVERLAY -->
+  <div id="envelope-overlay">
+    <div class="envelope-card">
+      <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.8rem; color: #888; margin-bottom: 10px;">Invito speciale per voi</p>
+      <h2 style="font-family: 'Alex Brush', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 5px;">Maurizio & Antonella</h2>
+      <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">Clicca sul sigillo per aprire l'invito</p>
+      
+      <div class="envelope-seal" onclick="apriInvito()" title="Apri Invito">
+        ✉️
+      </div>
+    </div>
+  </div>
+  
   <!-- HERO -->
   <header>
     <div class="names">Maurizio & Antonella</div>
@@ -371,6 +438,13 @@
       document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
       document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
     }, 1000);
+  </script>
+
+  <script>
+    function apriInvito() {
+      const overlay = document.getElementById('envelope-overlay');
+      overlay.classList.add('hidden');
+    }
   </script>
   
 </body>
