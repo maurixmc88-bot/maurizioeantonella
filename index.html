@@ -20,7 +20,6 @@
       --accent: #d4af37;  /* Oro tenue */
       --bg: #faf8f5;      /* Bianco caldo */
       --text: #2c2c2c;
-      --envelope-bg: #f4efe6;
       --envelope-shadow: rgba(0, 0, 0, 0.15);
     }
 
@@ -89,7 +88,6 @@
       position: relative;
       width: 360px;
       height: 240px;
-      background: #e3dbc slide;
       cursor: pointer;
       transform-style: preserve-3d;
       transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -127,7 +125,7 @@
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, opacity 0.6s ease;
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
     }
@@ -215,7 +213,7 @@
       width: 72px;
       height: 72px;
       background: radial-gradient(circle at 30% 30%, #a3382b 0%, #6d1d14 70%, #4a100a 100%);
-      border-radius: 48% 52% 54% 46% / 51% 47% 53% 49%; /* Bordi fusi irregolari */
+      border-radius: 48% 52% 54% 46% / 51% 47% 53% 49%;
       z-index: 6;
       display: flex;
       justify-content: center;
@@ -229,7 +227,6 @@
       cursor: pointer;
     }
 
-    /* Incisione dorata rilievo M&A */
     .wax-seal span {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
@@ -252,12 +249,11 @@
       opacity: 0;
     }
 
+    /* Il biglietto esce e sale in alto in primo piano */
     .envelope-wrapper.open .envelope-letter {
-      transform: translateY(-130px);
-    }
-
-    .envelope-wrapper.open {
-      transform: translateY(60px) scale(1.05);
+      transform: translateY(-135px);
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
     /* Testo indicativo sotto la busta */
@@ -269,6 +265,11 @@
       text-transform: uppercase;
       color: #7a7063;
       animation: blinkText 2s infinite ease-in-out;
+      transition: opacity 0.5s ease;
+    }
+
+    .envelope-wrapper.open ~ .envelope-hint {
+      opacity: 0;
     }
 
     @keyframes blinkText {
@@ -586,20 +587,23 @@
 
   <!-- Script Animazione Busta -->
   <script>
+    let giaAperto = false;
+
     function apriBusta() {
+      if (giaAperto) return;
+      giaAperto = true;
+
       const envelope = document.querySelector('.envelope-wrapper');
       const overlay = document.getElementById('envelope-overlay');
       
-      // Sblocco dello scroll del sito
-      document.body.classList.remove('envelope-active');
-
-      // Avvia l'animazione 3D
+      // Avvia l'animazione di apertura e fuoriuscita del biglietto
       envelope.classList.add('open');
-      
-      // Transizione fluida verso il sito web
+
+      // Attende 3.5 secondi con il biglietto in primo piano prima di passare al sito
       setTimeout(() => {
+        document.body.classList.remove('envelope-active');
         overlay.classList.add('hidden');
-      }, 1100);
+      }, 3500);
     }
   </script>
 
