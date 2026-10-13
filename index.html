@@ -6,7 +6,7 @@
   <title>Maurizio & Antonella — Il nostro Matrimonio</title>
   
   <!-- Favicon Arcobaleno per il Browser -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,14 +123,14 @@
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      z-index: 1; /* Dentro la busta a riposo */
+      z-index: 1; /* Inizia DENTRO la tasca */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      /* Passa sopra esattamente quando inizia a salire (a 0.6s) */
+      /* Passa sopra esattamente quando inizia a salire (a 0.6s) per evitare tagli */
       transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.6s;
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
@@ -138,8 +138,8 @@
 
     /* QUANDO LA BUSTA SI APRE */
     .envelope-wrapper.open .envelope-letter {
-      transform: translateY(-140px); /* Sale in alto staccandosi bene dalla busta */
-      z-index: 10; /* Passa in primo piano per non venire tagliato durante la salita */
+      transform: translateY(-140px); /* Sale completamente liberandosi dalla tasca */
+      z-index: 10; /* Passa in primo piano */
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
@@ -148,7 +148,7 @@
       font-size: 2.8rem;
       color: var(--primary);
       line-height: 1.1;
-      margin: 5px 0;
+      margin: 2px 0;
     }
 
     /* LEMBI LATERALI E INFERIORE (TASCA) */
@@ -282,6 +282,25 @@
       50% { opacity: 1; }
     }
 
+    /* DECORAZIONI BOTANICHE / FLOREALI */
+    .botanical-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 10px 0;
+      color: var(--primary);
+      opacity: 0.85;
+    }
+    .botanical-divider svg {
+      width: 50px;
+      height: 14px;
+      fill: var(--primary);
+    }
+    .botanical-divider .leaf-right {
+      transform: scaleX(-1);
+    }
+
     /* Hero Banner */
     header {
       padding: 100px 20px 80px;
@@ -314,16 +333,8 @@
     section h2 {
       font-size: 2.5rem;
       color: var(--primary);
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       position: relative;
-    }
-    section h2::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--accent);
-      margin: 15px auto 0;
     }
 
     /* Card con sfumatura delicata */
@@ -443,11 +454,17 @@
       <!-- Sfondo base interno -->
       <div class="envelope-base"></div>
       
-      <!-- Biglietto d'invito interno -->
+      <!-- Biglietto d'invito interno con dettaglio floreale -->
       <div class="envelope-letter">
         <p style="font-size: 0.7rem; letter-spacing: 2px; color: #888; text-transform: uppercase;">Partecipazione di Nozze</p>
         <h3>Maurizio<br>&<br>Antonella</h3>
-        <p style="font-size: 0.8rem; color: #666; font-weight: 500; margin-top: 4px;">9 OTTOBRE 2027</p>
+        
+        <!-- Rametto floreale decorativo centrale -->
+        <div class="botanical-divider">
+          <svg viewBox="0 0 100 30"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="30" cy="10" rx="5" ry="2.5" transform="rotate(-20 30 10)"/><ellipse cx="70" cy="10" rx="5" ry="2.5" transform="rotate(20 70 10)"/><circle cx="50" cy="5" r="2" fill="var(--accent)"/></svg>
+        </div>
+
+        <p style="font-size: 0.8rem; color: #666; font-weight: 500; margin-top: 2px;">9 OTTOBRE 2027</p>
       </div>
 
       <!-- Lembi laterali della tasca -->
@@ -501,8 +518,12 @@
   <!-- DOVE E QUANDO -->
   <section id="dettagli">
     <h2>Dove & Quando</h2>
+    <!-- Rametto botanico al posto della linea semplice -->
+    <div class="botanical-divider" style="margin-bottom: 30px;">
+      <svg viewBox="0 0 100 30"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="30" cy="10" rx="5" ry="2.5" transform="rotate(-20 30 10)"/><ellipse cx="70" cy="10" rx="5" ry="2.5" transform="rotate(20 70 10)"/><circle cx="50" cy="5" r="2" fill="var(--accent)"/></svg>
+    </div>
     
-    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
       
       <!-- CERIMONIA -->
       <div class="card" style="width: 100%; max-width: 500px;">
@@ -546,6 +567,9 @@
   <!-- CONFERMA PRESENZA (RSVP) -->
   <section id="rsvp">
     <h2>Conferma<br>la tua Presenza</h2>
+    <div class="botanical-divider" style="margin-bottom: 20px;">
+      <svg viewBox="0 0 100 30"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="30" cy="10" rx="5" ry="2.5" transform="rotate(-20 30 10)"/><ellipse cx="70" cy="10" rx="5" ry="2.5" transform="rotate(20 70 10)"/><circle cx="50" cy="5" r="2" fill="var(--accent)"/></svg>
+    </div>
     <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
 
     <!-- SOSTITUISCI L'URL ACTION CON IL TUO ENDPOINT FORMSPREE -->
