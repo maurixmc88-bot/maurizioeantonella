@@ -123,23 +123,23 @@
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      z-index: 1; /* Inizia DENTRO la tasca */
+      z-index: 1; /* Dentro la busta a riposo */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      /* Transizione fluida: ritardo 0.6s per l'apertura e passaggio z-index al termine della salita */
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.9s;
+      /* Passa sopra esattamente quando inizia a salire (a 0.6s) */
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.6s;
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
     }
 
     /* QUANDO LA BUSTA SI APRE */
     .envelope-wrapper.open .envelope-letter {
-      transform: translateY(-130px); /* Sale completamente liberandosi dalla tasca */
-      z-index: 10; /* Passa sopra sul finale per visibilità ottimale */
+      transform: translateY(-140px); /* Sale in alto staccandosi bene dalla busta */
+      z-index: 10; /* Passa in primo piano per non venire tagliato durante la salita */
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
