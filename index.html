@@ -120,7 +120,7 @@
     /* Invito che fuoriesce all'apertura */
     .envelope-letter {
       position: absolute;
-      bottom: 10px;
+      bottom: -10px; /* Nasconde la lettera più in basso dentro la tasca */
       left: 15px;
       width: 310px;
       height: 200px;
@@ -132,9 +132,16 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1) 0.3s;
+      transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1) 0.3s, opacity 0.5s ease;
       padding: 15px;
       border: 1px solid #eae2d8;
+      opacity: 0; /* Invisibile finché non si apre */
+    }
+
+    /* Quando la busta si apre, fa apparire e salire il biglietto */
+    .envelope-container.open .envelope-letter {
+      transform: translateY(-100px);
+      opacity: 1;
     }
 
     /* Sigillo in Ceralacca con Iniziali M&A */
