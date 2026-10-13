@@ -20,9 +20,12 @@
       --accent: #d4af37;  /* Oro tenue */
       --bg: #faf8f5;      /* Bianco caldo */
       --text: #2c2c2c;
+      --envelope-bg: #f4efe6;
+      --envelope-shadow: rgba(0, 0, 0, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--bg);
@@ -31,25 +34,32 @@
       text-align: center;
       overflow-x: hidden;
     }
+
+    /* Blocco scroll durante l'apertura della busta */
+    body.envelope-active {
+      overflow: hidden;
+    }
     
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
     }
 
-    /* === ANIMAZIONE BUSTA & CERALACCA REALISTICA === */
+    /* === SCHERMATA BUSTA REALISTICA === */
     #envelope-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #f5f0eb 0%, #e6ded3 100%);
-      z-index: 9999;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #fbf8f3 0%, #e8e1d5 100%);
+      z-index: 99999;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 1s ease, visibility 1s ease;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
+      perspective: 1200px;
     }
 
     #envelope-overlay.hidden {
@@ -58,154 +68,211 @@
       pointer-events: none;
     }
 
-    /* Effetto particelle di luce dorata di sottofondo */
+    /* Effetto Luce Dorata di Sfondo */
     .light-glow {
       position: absolute;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(255,255,255,0) 70%);
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
       border-radius: 50%;
-      animation: pulseGlow 3s infinite alternate ease-in-out;
+      animation: pulseGlow 3.5s infinite alternate ease-in-out;
       pointer-events: none;
     }
 
     @keyframes pulseGlow {
-      0% { transform: scale(0.8); opacity: 0.6; }
-      100% { transform: scale(1.3); opacity: 1; }
+      0% { transform: scale(0.85); opacity: 0.5; }
+      100% { transform: scale(1.25); opacity: 0.9; }
     }
 
-    /* Struttura Busta */
-    .envelope-container {
+    /* STRUTTURA BUSTA REALISTICA 3D */
+    .envelope-wrapper {
       position: relative;
-      width: 340px;
-      height: 230px;
-      background: #fbf9f6;
-      border-radius: 6px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+      width: 360px;
+      height: 240px;
+      background: #e3dbc slide;
       cursor: pointer;
-      transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-      border: 1px solid #dcd4c8;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Patta superiore della busta */
-    .envelope-flap {
+    .envelope-wrapper:hover {
+      transform: translateY(-5px) rotateX(4deg);
+    }
+
+    /* Base/Sfondo interno della busta */
+    .envelope-base {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e5ddd0 0%, #d8cebd 100%);
+      border-radius: 8px;
+      box-shadow: 0 20px 45px var(--envelope-shadow), 0 5px 15px rgba(0,0,0,0.08);
+      border: 1px solid #d0c5b3;
+    }
+
+    /* BIGLIETTO D'INVITO INTERNO */
+    .envelope-letter {
+      position: absolute;
+      top: 12px;
+      left: 18px;
+      width: 324px;
+      height: 216px;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #e8e2d8;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, opacity 0.6s ease;
+      background-image: radial-gradient(#faf7f2 1px, transparent 0);
+      background-size: 12px 12px;
+    }
+
+    .envelope-letter h3 {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.8rem;
+      color: var(--primary);
+      line-height: 1.1;
+      margin: 5px 0;
+    }
+
+    /* LEMBI LATERALI E INFERIORE (TASCA) */
+    .envelope-pocket {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Lembo sinistro */
+    .envelope-pocket::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 0;
-      height: 0;
-      border-left: 170px solid transparent;
-      border-right: 170px solid transparent;
-      border-top: 125px solid #f2ede4;
-      transform-origin: top;
-      transition: transform 0.6s ease-in-out;
-      z-index: 3;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.05));
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #eee6d8 0%, #e0d5c3 100%);
+      clip-path: polygon(0 0, 50% 50%, 0 100%);
+      border-radius: 8px 0 0 8px;
+      filter: drop-shadow(2px 0 3px rgba(0,0,0,0.03));
     }
 
-    /* Tasche interne della busta (effetto 3D) */
-    .envelope-pocket {
+    /* Lembo destro */
+    .envelope-pocket::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-135deg, #eae1d2 0%, #dbcfbd 100%);
+      clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+      border-radius: 0 8px 8px 0;
+      filter: drop-shadow(-2px 0 3px rgba(0,0,0,0.03));
+    }
+
+    /* Lembo inferiore */
+    .envelope-bottom {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #f7f3ec 0%, #eee6dc 100%);
-      border-radius: 0 0 6px 6px;
-      z-index: 2;
-      clip-path: polygon(0 30%, 50% 65%, 100% 30%, 100% 100%, 0 100%);
-      border-top: 1px solid #dfd5c7;
+      background: linear-gradient(0deg, #dfd4c1 0%, #ebdcc8 100%);
+      clip-path: polygon(0 100%, 50% 45%, 100% 100%);
+      z-index: 4;
+      border-radius: 0 0 8px 8px;
+      filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.05));
     }
 
-    /* Invito che fuoriesce all'apertura */
-    .envelope-letter {
+    /* PATTA SUPERIORE MOBILE (FLAP) */
+    .envelope-flap {
       position: absolute;
-      bottom: -10px; /* Nasconde la lettera più in basso dentro la tasca */
-      left: 15px;
-      width: 310px;
-      height: 200px;
-      background: #ffffff;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1) 0.3s, opacity 0.5s ease;
-      padding: 15px;
-      border: 1px solid #eae2d8;
-      opacity: 0; /* Invisibile finché non si apre */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #f3ebd9 0%, #e4d8c3 100%);
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      transform-origin: top center;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
     }
 
-    /* Quando la busta si apre, fa apparire e salire il biglietto */
-    .envelope-container.open .envelope-letter {
-      transform: translateY(-100px);
-      opacity: 1;
-    }
-
-    /* Sigillo in Ceralacca con Iniziali M&A */
+    /* SIGILLO IN CERALACCA REALE CON BORDINI FUSI */
     .wax-seal {
       position: absolute;
-      top: 100px;
+      top: 132px;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 65px;
-      height: 65px;
-      background: radial-gradient(circle, #733c30 0%, #4e261f 100%); /* Colore ceralacca bordeaux elegante */
-      border-radius: 50%;
-      z-index: 4;
+      width: 72px;
+      height: 72px;
+      background: radial-gradient(circle at 30% 30%, #a3382b 0%, #6d1d14 70%, #4a100a 100%);
+      border-radius: 48% 52% 54% 46% / 51% 47% 53% 49%; /* Bordi fusi irregolari */
+      z-index: 6;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 3px rgba(255,255,255,0.2);
-      border: 2px dashed #9e5b4e;
-      transition: transform 0.4s ease, opacity 0.4s ease;
+      box-shadow: 
+        0 6px 15px rgba(0,0,0,0.35),
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -3px 6px rgba(0,0,0,0.5);
+      border: 1px solid #b84335;
+      transition: transform 0.5s ease, opacity 0.4s ease;
+      cursor: pointer;
     }
 
+    /* Incisione dorata rilievo M&A */
     .wax-seal span {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      color: var(--accent);
+      color: #dfb75e;
       letter-spacing: 1px;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      text-shadow: 
+        0 1px 1px rgba(0,0,0,0.8),
+        0 -1px 1px rgba(255,255,255,0.2);
     }
 
-    /* STATO APERTO (Animazione attivata dal click) */
-    .envelope-container.open .envelope-flap {
+    /* ANIMAZIONE DI APERTURA */
+    .envelope-wrapper.open .envelope-flap {
       transform: rotateX(180deg);
-      z-index: 0;
+      z-index: 1;
     }
 
-    .envelope-container.open .wax-seal {
-      transform: translate(-50%, -50%) scale(1.3);
+    .envelope-wrapper.open .wax-seal {
+      transform: translate(-50%, -50%) scale(1.4);
       opacity: 0;
     }
 
-    .envelope-container.open .envelope-letter {
-      transform: translateY(-90px);
+    .envelope-wrapper.open .envelope-letter {
+      transform: translateY(-130px);
     }
 
-    .envelope-container.open {
-      transform: scale(1.1) translateY(40px);
-      opacity: 0;
-      pointer-events: none;
+    .envelope-wrapper.open {
+      transform: translateY(60px) scale(1.05);
     }
 
-    /* Istruzione testuale sotto la busta */
+    /* Testo indicativo sotto la busta */
     .envelope-hint {
       position: absolute;
-      bottom: 25px;
+      bottom: 40px;
       font-size: 0.8rem;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: #777;
-      animation: blinkText 2s infinite;
+      color: #7a7063;
+      animation: blinkText 2s infinite ease-in-out;
     }
 
     @keyframes blinkText {
-      0%, 100% { opacity: 0.5; }
+      0%, 100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
 
@@ -342,9 +409,14 @@
     /* Adattamento per dispositivi mobili */
     @media (max-width: 600px) {
       .names { font-size: 2.5rem; }
-      .envelope-container { width: 300px; height: 200px; }
-      .envelope-flap { border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 110px solid #f2ede4; }
-      .envelope-letter { width: 270px; height: 180px; }
+      
+      /* Ridimensionamento Busta su mobile */
+      .envelope-wrapper { width: 310px; height: 210px; }
+      .envelope-letter { width: 280px; height: 188px; top: 10px; left: 15px; }
+      .envelope-letter h3 { font-size: 2.3rem; }
+      .wax-seal { top: 115px; width: 64px; height: 64px; }
+      .wax-seal span { font-size: 1.3rem; }
+
       .card { padding: 20px 10px; }
       form { padding: 20px 15px; }
 
@@ -355,31 +427,39 @@
     }
   </style>
 </head>
-<body>
+<body class="envelope-active">
 
-  <!-- BUSTA 3D CON CERALACCA E LUCI -->
+  <!-- BUSTA D'INVITO 3D REALISTICA -->
   <div id="envelope-overlay">
     <div class="light-glow"></div>
-    <div class="envelope-container" onclick="apriBusta()">
-      <!-- Lettera interna -->
-      <div class="envelope-letter">
-        <p style="font-size: 0.75rem; letter-spacing: 2px; color: #888; text-transform: uppercase;">Partecipazione di Nozze</p>
-        <h3 style="font-family: 'Alex Brush', cursive; font-size: 2.2rem; color: var(--primary); margin: 5px 0;">Maurizio<br>&<br>Antonella</h3>
-        <p style="font-size: 0.8rem; color: #666;">9 Ottobre 2027</p>
-      </div>
+    
+    <div class="envelope-wrapper" onclick="apriBusta()">
+      <!-- Sfondo base interno -->
+      <div class="envelope-base"></div>
       
-      <!-- Tasca inferiore -->
+      <!-- Biglietto d'invito interno -->
+      <div class="envelope-letter">
+        <p style="font-size: 0.7rem; letter-spacing: 2px; color: #888; text-transform: uppercase;">Partecipazione di Nozze</p>
+        <h3>Maurizio<br>&<br>Antonella</h3>
+        <p style="font-size: 0.8rem; color: #666; font-weight: 500; margin-top: 4px;">9 OTTOBRE 2027</p>
+      </div>
+
+      <!-- Lembi laterali della tasca -->
       <div class="envelope-pocket"></div>
       
-      <!-- Patta superiore -->
+      <!-- Lembo inferiore -->
+      <div class="envelope-bottom"></div>
+      
+      <!-- Patta superiore (Flap) -->
       <div class="envelope-flap"></div>
       
-      <!-- Sigillo in Cera Lacca con Iniziali -->
-      <div class="wax-seal">
+      <!-- Sigillo in Ceralacca -->
+      <div class="wax-seal" title="Apri l'invito">
         <span>M&A</span>
       </div>
     </div>
-    <div class="envelope-hint">Tocca il sigillo per aprire</div>
+
+    <div class="envelope-hint">Tocca il sigillo per aprire l'invito</div>
   </div>
 
   <!-- HERO -->
@@ -507,16 +587,19 @@
   <!-- Script Animazione Busta -->
   <script>
     function apriBusta() {
-      const envelope = document.querySelector('.envelope-container');
+      const envelope = document.querySelector('.envelope-wrapper');
       const overlay = document.getElementById('envelope-overlay');
       
-      // Avvia l'animazione di apertura
+      // Sblocco dello scroll del sito
+      document.body.classList.remove('envelope-active');
+
+      // Avvia l'animazione 3D
       envelope.classList.add('open');
       
-      // Dopo che l'animazione è finita, rimuove completamente la schermata della busta
+      // Transizione fluida verso il sito web
       setTimeout(() => {
         overlay.classList.add('hidden');
-      }, 900);
+      }, 1100);
     }
   </script>
 
