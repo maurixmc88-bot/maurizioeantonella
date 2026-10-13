@@ -118,14 +118,14 @@
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      z-index: 1; /* Rimane dentro la tasca all'inizio */
+      z-index: 1; /* Sta SEMPRE dentro/dietro la tasca */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.45s, z-index 0s ease 0.45s; /* Cambia livello a metà salita */
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s; /* Solo il movimento con ritardo di 0.6s */
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
     }
@@ -249,10 +249,9 @@
       opacity: 0;
     }
 
-   /* Il biglietto sfila verso l'alto e a metà strada scavalca la busta portandosi in primo piano */
+   /* Il biglietto sfila verso l'alto restando all'interno della busta */
     .envelope-wrapper.open .envelope-letter {
       transform: translateY(-90px);
-      z-index: 10; /* Finisce sopra la busta solo dopo essere uscito */
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
