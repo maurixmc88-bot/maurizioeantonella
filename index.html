@@ -125,7 +125,7 @@
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.3s;
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
     }
@@ -238,7 +238,7 @@
         0 -1px 1px rgba(255,255,255,0.2);
     }
 
-    /* ANIMAZIONE DI APERTURA */
+    /* ANIMAZIONE DI APERTURA CORRETTA (VERSO L'ALTO) */
     .envelope-wrapper.open .envelope-flap {
       transform: rotateX(180deg);
       z-index: 1;
@@ -249,9 +249,9 @@
       opacity: 0;
     }
 
-    /* Il biglietto esce e sale in alto in primo piano */
+    /* Il biglietto sfila verso l'alto uscendo dalla tasca */
     .envelope-wrapper.open .envelope-letter {
-      transform: translateY(-135px);
+      transform: translateY(-90px);
       z-index: 10;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
@@ -596,10 +596,10 @@
       const envelope = document.querySelector('.envelope-wrapper');
       const overlay = document.getElementById('envelope-overlay');
       
-      // Avvia l'animazione di apertura e fuoriuscita del biglietto
+      // Avvia l'animazione di apertura
       envelope.classList.add('open');
 
-      // Attende 3.5 secondi con il biglietto in primo piano prima di passare al sito
+      // Attende 3.5 secondi con il biglietto in primo piano prima di sbloccare il sito
       setTimeout(() => {
         document.body.classList.remove('envelope-active');
         overlay.classList.add('hidden');
