@@ -172,14 +172,19 @@
     @media (max-width: 600px) {
       .names { font-size: 2.5rem; }
 
-      /* Allineamento perfetto del Countdown su un'unica riga per smartphone */
+      /* Ottimizzazione spazio schede/card su mobile */
+      .card {
+        padding: 20px 10px; /* Riduce i margini interni laterali */
+      }
+
+      /* Countdown */
       .countdown-container {
         gap: 6px;
-        flex-wrap: nowrap; /* Impedisce di andare a capo */
+        flex-wrap: nowrap;
       }
       .countdown-box {
         min-width: 0;
-        flex: 1; /* Distribuisce uniformemente i 4 riquadri */
+        flex: 1;
         padding: 10px 4px;
       }
       .countdown-number {
@@ -294,7 +299,7 @@
     <p style="font-size: 0.9rem;">Il regalo più bello sarà averti al nostro fianco.</p>
     <p style="font-size: 0.9rem;">Siamo felicissimi di festeggiare questo grande momento insieme!</p>
     <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-      <p style="font-size: 0.70rem;">
+      <p style="font-size: 0.95rem;">
       <strong>IBAN:</strong> 
       <span id="iban-text" style="user-select: all; font-family: monospace;">IT00 X000 0000 0000 0000 0000 000</span>
       </p>
