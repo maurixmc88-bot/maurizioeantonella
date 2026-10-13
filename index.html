@@ -108,7 +108,7 @@
       border: 1px solid #d0c5b3;
     }
 
-    /* BIGLIETTO D'INVITO INTERNO */
+   /* BIGLIETTO D'INVITO INTERNO */
     .envelope-letter {
       position: absolute;
       top: 12px;
@@ -118,14 +118,14 @@
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      z-index: 2;
+      z-index: 1; /* Rimane dentro la tasca all'inizio */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.3s;
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.3s, z-index 0s ease 0.45s; /* Cambia livello a metà salita */
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
     }
@@ -249,10 +249,10 @@
       opacity: 0;
     }
 
-    /* Il biglietto sfila verso l'alto uscendo dalla tasca */
+   /* Il biglietto sfila verso l'alto e a metà strada scavalca la busta portandosi in primo piano */
     .envelope-wrapper.open .envelope-letter {
       transform: translateY(-90px);
-      z-index: 10;
+      z-index: 10; /* Finisce sopra la busta solo dopo essere uscito */
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
