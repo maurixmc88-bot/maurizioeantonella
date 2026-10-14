@@ -27,7 +27,7 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
-      /* Effetto Materico Carta di Cotone / Pergamena Fine */
+      /* Effetto Materico Carta di Cotone */
       background-color: var(--paper-bg);
       background-image: 
         radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0),
@@ -276,7 +276,7 @@
       50% { opacity: 1; }
     }
 
-    /* === ANIMAZIONE DI APPARIZIONE AL SCORRIMENTO (SCROLL REVEAL) === */
+    /* ANIMAZIONE SCROLL REVEAL */
     .reveal-section {
       opacity: 0;
       transform: translateY(30px);
@@ -287,12 +287,17 @@
       transform: translateY(0);
     }
 
-    /* Hero Banner */
+    /* === HERO BANNER CON foto.jpg E FILTRO PERFETTO DI LEGGIBILITÀ === */
     header {
-      padding: 110px 20px 80px;
-      background-color: transparent;
+      position: relative;
+      padding: 130px 20px 100px;
+      /* Utilizza foto.jpg caricata nella stessa cartella */
+      background-image: linear-gradient(rgba(251, 249, 244, 0.88), rgba(251, 249, 244, 0.88)), url('foto.jpg');
+      background-size: cover;
+      background-position: center;
       border-bottom: 1px solid #e0d8ce;
     }
+
     .names {
       font-family: 'Alex Brush', cursive;
       font-size: 4.8rem;
@@ -301,6 +306,7 @@
       font-weight: normal;
       line-height: 1.2;
       animation: fadeInScale 1.5s ease;
+      text-shadow: 0 2px 10px rgba(255,255,255,0.8);
     }
 
     @keyframes fadeInScale {
@@ -312,7 +318,7 @@
       font-size: 1.2rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #666;
+      color: #444;
       font-weight: bold;
     }
 
@@ -509,10 +515,10 @@
     <div class="envelope-hint">Tocca il sigillo per aprire l'invito</div>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO CON foto.jpg E VELO PROTETTIVO -->
   <header>
     <div class="names">Maurizio & Antonella</div>
-    <p>Ci sposiamo!</p>
+    <p style="font-weight: 500; color: #555;">Ci sposiamo!</p>
     <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
   </header>
   
