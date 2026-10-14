@@ -27,7 +27,6 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
-      /* Effetto Materico Carta di Cotone */
       background-color: var(--paper-bg);
       background-image: 
         radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0),
@@ -38,35 +37,32 @@
       line-height: 1.6;
       text-align: center;
       overflow-x: hidden;
+    }
+
+    /* CONTENITORE PRINCIPALE CON CORNICE CHE SEGUE IL DOCUMENTO DALL'INIZIO ALLA FINE */
+    .site-paper-wrapper {
       position: relative;
-    }
-
-    /* CORNICE PERIMETRALE GENERALE DEL SITO (Effetto invito cartaceo) */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 12px;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
+      max-width: 900px;
+      margin: 15px auto;
+      min-height: calc(100vh - 30px);
       border: 1px solid rgba(212, 175, 55, 0.45);
-      pointer-events: none;
-      z-index: 999;
-      border-radius: 6px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
     }
 
-    /* Angoli botanici decorativi fissi sulla cornice esterna */
+    /* Angoli botanici decorativi posizionati ai 4 angoli reali del documento */
     .page-border-decor {
-      position: fixed;
-      font-size: 1rem;
-      z-index: 1000;
-      opacity: 0.6;
+      position: absolute;
+      font-size: 1.1rem;
+      z-index: 10;
+      opacity: 0.65;
       pointer-events: none;
     }
-    .decor-tl { top: 16px; left: 18px; }
-    .decor-tr { top: 16px; right: 18px; transform: scaleX(-1); }
-    .decor-bl { bottom: 16px; left: 18px; transform: scaleY(-1); }
-    .decor-br { bottom: 16px; right: 18px; transform: scale(-1, -1); }
+    .decor-tl { top: 10px; left: 12px; }
+    .decor-tr { top: 10px; right: 12px; transform: scaleX(-1); }
+    .decor-bl { bottom: 10px; left: 12px; transform: scaleY(-1); }
+    .decor-br { bottom: 10px; right: 12px; transform: scale(-1, -1); }
 
     /* Blocco scroll durante l'apertura della busta (Fix iOS/Safari) */
     body.envelope-active {
@@ -106,7 +102,6 @@
       pointer-events: none;
     }
 
-    /* Effetto Luce Dorata di Sfondo */
     .light-glow {
       position: absolute;
       width: 450px;
@@ -122,7 +117,6 @@
       100% { transform: scale(1.25); opacity: 0.9; }
     }
 
-    /* STRUTTURA BUSTA REALISTICA 3D */
     .envelope-wrapper {
       position: relative;
       width: 360px;
@@ -287,15 +281,17 @@
       transform: translateY(0);
     }
 
-    /* === HERO BANNER CON foto.jpg E FILTRO PERFETTO DI LEGGIBILITÀ === */
+    /* === HERO BANNER CON FOTO CENTRATA SULLA PARTE SUPERIORE (VOLTI) === */
     header {
       position: relative;
-      padding: 130px 20px 100px;
-      /* Utilizza foto.jpg caricata nella stessa cartella */
+      padding: 140px 20px 120px;
+      /* Impostiamo background-position su center top per focalizzare i volti */
       background-image: linear-gradient(rgba(251, 249, 244, 0.88), rgba(251, 249, 244, 0.88)), url('foto.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center top;
       border-bottom: 1px solid #e0d8ce;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
     }
 
     .names {
@@ -464,8 +460,8 @@
 
     /* Adattamento per dispositivi mobili */
     @media (max-width: 600px) {
+      .site-paper-wrapper { margin: 8px; }
       .names { font-size: 2.5rem; }
-      body::before { top: 6px; left: 6px; right: 6px; bottom: 6px; }
       
       .envelope-wrapper { width: 310px; height: 210px; }
       .envelope-letter { width: 280px; height: 188px; top: 10px; left: 15px; }
@@ -483,12 +479,6 @@
   </style>
 </head>
 <body class="envelope-active">
-
-  <!-- Fiori decorativi agli angoli della cornice perimetrale -->
-  <div class="page-border-decor decor-tl">🌿</div>
-  <div class="page-border-decor decor-tr">🌿</div>
-  <div class="page-border-decor decor-bl">🌿</div>
-  <div class="page-border-decor decor-br">🌿</div>
 
   <!-- BUSTA D'INVITO 3D REALISTICA -->
   <div id="envelope-overlay">
@@ -515,124 +505,139 @@
     <div class="envelope-hint">Tocca il sigillo per aprire l'invito</div>
   </div>
 
-  <!-- HERO CON foto.jpg E VELO PROTETTIVO -->
-  <header>
-    <div class="names">Maurizio & Antonella</div>
-    <p style="font-weight: 500; color: #555;">Ci sposiamo!</p>
-    <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
-  </header>
-  
-  <!-- COUNTDOWN -->
-  <section class="reveal-section" style="padding: 20px 20px 40px; text-align: center;">
-    <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; color: #777; margin-bottom: 15px;">Mancano solo:</p>
-    <div class="countdown-container">
-      <div class="countdown-box">
-        <span id="days" class="countdown-number">00</span>
-        <span class="countdown-label">Giorni</span>
-      </div>
-      <div class="countdown-box">
-        <span id="hours" class="countdown-number">00</span>
-        <span class="countdown-label">Ore</span>
-      </div>
-      <div class="countdown-box">
-        <span id="minutes" class="countdown-number">00</span>
-        <span class="countdown-label">Minuti</span>
-      </div>
-      <div class="countdown-box">
-        <span id="seconds" class="countdown-number">00</span>
-        <span class="countdown-label">Secondi</span>
-      </div>
-    </div>
-  </section>
+  <!-- FOGLIO DEL SITO RACCHIUSO NELLA CORNICE FINO IN FONDO -->
+  <div class="site-paper-wrapper">
 
-  <!-- DOVE E QUANDO -->
-  <section id="dettagli" class="reveal-section">
-    <h2>Dove & Quando</h2>
+    <!-- Fiori decorativi ai 4 angoli reali del documento -->
+    <div class="page-border-decor decor-tl">🌿</div>
+    <div class="page-border-decor decor-tr">🌿</div>
+    <div class="page-border-decor decor-bl">🌿</div>
+    <div class="page-border-decor decor-br">🌿</div>
+
+    <!-- HERO CON foto.jpg CENTRATA SULLA PARTE SUPERIORE -->
+    <header>
+      <div class="names">Maurizio & Antonella</div>
+      <p style="font-weight: 500; color: #555;">Ci sposiamo!</p>
+      <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
+    </header>
     
-    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+    <!-- COUNTDOWN -->
+    <section class="reveal-section" style="padding: 20px 20px 40px; text-align: center;">
+      <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; color: #777; margin-bottom: 15px;">Mancano solo:</p>
+      <div class="countdown-container">
+        <div class="countdown-box">
+          <span id="days" class="countdown-number">00</span>
+          <span class="countdown-label">Giorni</span>
+        </div>
+        <div class="countdown-box">
+          <span id="hours" class="countdown-number">00</span>
+          <span class="countdown-label">Ore</span>
+        </div>
+        <div class="countdown-box">
+          <span id="minutes" class="countdown-number">00</span>
+          <span class="countdown-label">Minuti</span>
+        </div>
+        <div class="countdown-box">
+          <span id="seconds" class="countdown-number">00</span>
+          <span class="countdown-label">Secondi</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOVE E QUANDO -->
+    <section id="dettagli" class="reveal-section">
+      <h2>Dove & Quando</h2>
       
-      <!-- CERIMONIA -->
-      <div class="card" style="width: 100%; max-width: 500px;">
-        <h3>Cerimonia</h3>
-        <p><strong>Ore 10:30</strong></p>
-        <p style="margin-top: 8px; font-size: 0.95rem;">
-          <strong>Chiesa Madre di<br>San Giacomo Maggiore Apostolo</strong>
-        </p>
-        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
-          Corso Umberto I, 1 - San Valentino Torio (SA)
+      <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+        
+        <!-- CERIMONIA -->
+        <div class="card" style="width: 100%; max-width: 500px;">
+          <h3>Cerimonia</h3>
+          <p><strong>Ore 10:30</strong></p>
+          <p style="margin-top: 8px; font-size: 0.95rem;">
+            <strong>Chiesa Madre di<br>San Giacomo Maggiore Apostolo</strong>
+          </p>
+          <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
+            Corso Umberto I, 1 - San Valentino Torio (SA)
+          </p>
+          
+          <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
+            <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
+              📍 Apri Indicazioni Stradali
+            </button>
+          </a>
+        </div>
+
+        <!-- RICEVIMENTO -->
+        <div class="card" style="width: 100%; max-width: 500px;">
+          <h3>Ricevimento</h3>
+          <p><strong>Ore 13:00</strong></p>
+          <p style="margin-top: 8px; font-size: 0.95rem;">
+            <strong>Villa Vittoria</strong>
+          </p>
+          <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
+            Via Cifelli, 44 - Boscotrecase (NA)
+          </p>
+          
+          <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
+            <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
+              📍 Apri Indicazioni Stradali
+            </button>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONFERMA PRESENZA (RSVP) -->
+    <section id="rsvp" class="reveal-section">
+      <h2>Conferma<br>la tua Presenza</h2>
+      <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
+
+      <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
+        <div>
+          <label for="nome">Nome e Cognome</label>
+          <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
+        </div>
+        <div>
+          <label for="partecipazione">Parteciperai?</label>
+          <select id="partecipazione" name="partecipazione" required>
+            <option value="Sì, ci sarò!">Sì, ci sarò con piacere!</option>
+            <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
+          </select>
+        </div>
+        <div>
+          <label for="note">Allergie, intolleranze o menu speciali?</label>
+          <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
+        </div>
+        <button type="submit">Invia Conferma</button>
+      </form>
+    </section>
+
+    <!-- LISTA NOZZE / REGALO -->
+    <section id="regalo" class="reveal-section">
+      <p style="font-size: 0.9rem;">Il regalo più bello sarà averti al nostro fianco.</p>
+      <p style="font-size: 0.9rem;">Siamo felicissimi di festeggiare<br>questo grande momento insieme!</p>
+      <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <p style="font-size: 0.90rem;">
+          <strong>IBAN:</strong> 
+          <span id="iban-text" style="user-select: all; font-family: monospace;">IT00X0000000000000000000000</span>
         </p>
         
-        <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
-            📍 Apri Indicazioni Stradali
-          </button>
-        </a>
-      </div>
-
-      <!-- RICEVIMENTO -->
-      <div class="card" style="width: 100%; max-width: 500px;">
-        <h3>Ricevimento</h3>
-        <p><strong>Ore 13:00</strong></p>
-        <p style="margin-top: 8px; font-size: 0.95rem;">
-          <strong>Villa Vittoria</strong>
+        <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
+          📋 Copia IBAN
+        </button>
+        <p style="font-size: 0.75rem; color: #444; margin-top: 10px;">
+          Intestato a: Maurizio Rosa & Antonella Raffone
         </p>
-        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
-          Via Cifelli, 44 - Boscotrecase (NA)
-        </p>
-        
-        <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
-            📍 Apri Indicazioni Stradali
-          </button>
-        </a>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <footer style="padding: 30px 20px; font-size: 0.8rem; color: #888; border-top: 1px solid #eae2d6;">
+      Maurizio & Antonella — 9 Ottobre 2027
+    </footer>
 
-  <!-- CONFERMA PRESENZA (RSVP) -->
-  <section id="rsvp" class="reveal-section">
-    <h2>Conferma<br>la tua Presenza</h2>
-    <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
-
-    <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
-      <div>
-        <label for="nome">Nome e Cognome</label>
-        <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
-      </div>
-      <div>
-        <label for="partecipazione">Parteciperai?</label>
-        <select id="partecipazione" name="partecipazione" required>
-          <option value="Sì, ci sarò!">Sì, ci sarò con piacere!</option>
-          <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
-        </select>
-      </div>
-      <div>
-        <label for="note">Allergie, intolleranze o menu speciali?</label>
-        <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
-      </div>
-      <button type="submit">Invia Conferma</button>
-    </form>
-  </section>
-
-  <!-- LISTA NOZZE / REGALO -->
-  <section id="regalo" class="reveal-section">
-    <p style="font-size: 0.9rem;">Il regalo più bello sarà averti al nostro fianco.</p>
-    <p style="font-size: 0.9rem;">Siamo felicissimi di festeggiare<br>questo grande momento insieme!</p>
-    <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-      <p style="font-size: 0.90rem;">
-        <strong>IBAN:</strong> 
-        <span id="iban-text" style="user-select: all; font-family: monospace;">IT00X0000000000000000000000</span>
-      </p>
-      
-      <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
-        📋 Copia IBAN
-      </button>
-      <p style="font-size: 0.75rem; color: #444; margin-top: 10px;">
-        Intestato a: Maurizio Rosa & Antonella Raffone
-      </p>
-    </div>
-  </section>
+  </div>
 
   <!-- Script Animazione Busta e Scroll Reveal -->
   <script>
