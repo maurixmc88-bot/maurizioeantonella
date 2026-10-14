@@ -625,25 +625,30 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON FEDI ELEGANTI, LIMPIDE E DEFINITE -->
+        <!-- CERIMONIA CON ICONA DELLA CHIESA ELEGANTE E PROPORZIONATA -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
             <svg class="custom-svg-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <!-- Anello Sinistro -->
-              <ellipse cx="40" cy="52" rx="22" ry="14" transform="rotate(-15 40 52)" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
-              <ellipse cx="40" cy="52" rx="16" ry="9" transform="rotate(-15 40 52)" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-dasharray="2 2" opacity="0.8"/>
+              <!-- Croce in Cima -->
+              <path d="M 50 12 L 50 24 M 45 16 L 55 16" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
               
-              <!-- Anello Destro Intrecciato -->
-              <ellipse cx="60" cy="52" rx="22" ry="14" transform="rotate(15 60 52)" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
-              <ellipse cx="60" cy="52" rx="16" ry="9" transform="rotate(15 60 52)" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-dasharray="2 2" opacity="0.8"/>
+              <!-- Tetto / Timpano della Chiesa -->
+              <polygon points="50,25 22,44 78,44" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linejoin="round"/>
+              <polygon points="50,29 27,43 73,43" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.6"/>
 
-              <!-- Dettaglio di sovrapposizione pulito -->
-              <path d="M 43 38 A 22 14 0 0 1 57 41" fill="none" stroke="var(--paper-bg)" stroke-width="4"/>
-              <path d="M 43 38 A 22 14 0 0 1 57 41" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
+              <!-- Corpo della Chiesa -->
+              <rect x="26" y="44" width="48" height="42" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linejoin="round"/>
+              
+              <!-- Rosone Centrale / Finestra Circolare -->
+              <circle cx="50" cy="56" r="7" fill="none" stroke="var(--primary)" stroke-width="1.8"/>
+              <circle cx="50" cy="56" r="3" fill="none" stroke="var(--accent)" stroke-width="1"/>
 
-              <!-- Punto Luce Dorato -->
-              <circle cx="30" cy="42" r="2" fill="var(--accent)"/>
-              <circle cx="70" cy="42" r="2" fill="var(--accent)"/>
+              <!-- Portone d'Ingresso ad Arco -->
+              <path d="M 42 86 L 42 72 A 8 8 0 0 1 58 72 L 58 86" fill="none" stroke="var(--primary)" stroke-width="2"/>
+              <line x1="50" y1="68" x2="50" y2="86" stroke="var(--primary)" stroke-width="1" stroke-dasharray="2 2"/>
+              
+              <!-- Linea della Base -->
+              <line x1="18" y1="86" x2="82" y2="86" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
             </svg>
           </div>
           <h3>Cerimonia</h3>
@@ -681,7 +686,7 @@
               <!-- Scintille Centrali del Brindisi (Oro e Salvia) -->
               <path d="M 50 18 L 50 10" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
               <path d="M 43 20 L 38 15" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
-              <path d="M 57 20 L 62 15" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 57 20 L 62 15" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
               <polygon points="50,20 52,24 56,24 53,26 54,30 50,27 46,30 47,26 44,24 48,24" fill="var(--accent)"/>
             </svg>
           </div>
