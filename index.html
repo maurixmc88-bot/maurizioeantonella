@@ -441,6 +441,15 @@
       border-color: var(--primary);
     }
 
+    /* Griglia per adulti e bambini affiancati */
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+    .form-row > div {
+      flex: 1;
+    }
+
     button {
       background-color: var(--primary);
       color: white;
@@ -456,7 +465,7 @@
 
     footer {
       padding: 30px 20px;
-      font-size: 0.9rem;
+      font-size: 1.3rem;
       color: var(--primary);
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -509,6 +518,8 @@
       .wax-seal span { font-size: 1.3rem; }
 
       .card, form { padding: 25px 15px; }
+
+      .form-row { flex-direction: column; gap: 15px; }
 
       .countdown-container { gap: 6px; flex-wrap: nowrap; }
       .countdown-box { min-width: 0; flex: 1; padding: 10px 4px; }
@@ -644,6 +655,19 @@
           <label for="nome">Nome e Cognome</label>
           <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
         </div>
+
+        <!-- Specifico adulti e bambini -->
+        <div class="form-row">
+          <div>
+            <label for="adulti">Numero Adulti</label>
+            <input type="number" id="adulti" name="adulti" min="1" value="1" required>
+          </div>
+          <div>
+            <label for="bambini">Eventuali Bambini</label>
+            <input type="number" id="bambini" name="bambini" min="0" value="0">
+          </div>
+        </div>
+
         <div>
           <label for="partecipazione">Parteciperai?</label>
           <select id="partecipazione" name="partecipazione" required>
@@ -651,10 +675,18 @@
             <option value="Purtroppo non potrò">Purtroppo non potrò esserci</option>
           </select>
         </div>
+        
         <div>
-          <label for="note">Allergie, intolleranze o menu speciali?</label>
-          <textarea id="note" name="note" rows="3" placeholder="Es. Vegetariano, celiaco..."></textarea>
+          <label for="note">Allergie, intolleranze o esigenze alimentari?</label>
+          <textarea id="note" name="note" rows="2" placeholder="Es. Vegetariano, celiaco..."></textarea>
         </div>
+
+        <!-- Nuovo box per lasciare un messaggio agli sposi -->
+        <div>
+          <label for="messaggio">Lascia un messaggio per gli sposi 💌</label>
+          <textarea id="messaggio" name="messaggio" rows="3" placeholder="Scrivi qui i tuoi auguri..."></textarea>
+        </div>
+
         <button type="submit">Invia Conferma</button>
       </form>
     </section>
@@ -679,7 +711,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer style="font-size: 1.3rem;">
+    <footer>
       Grazie a tutti!
     </footer>
 
