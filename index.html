@@ -419,21 +419,20 @@
       color: var(--primary);
     }
 
-    /* Stile per le immagini fedi.png e calici.png con adattamento cromatico al verde salvia */
+    /* Contenitore e stile SVG vettoriale completamente trasparenti senza rettangoli di sfondo */
     .card-icon-container {
       margin-bottom: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .illustration-img {
-      width: 85px;
-      height: auto;
-      max-height: 85px;
-      object-fit: contain;
-      filter: sepia(0.6) hue-rotate(60deg) saturate(0.8) contrast(1.1) brightness(0.85);
-      mix-blend-mode: multiply;
-      opacity: 0.88;
+    .custom-svg-icon {
+      width: 75px;
+      height: 75px;
+      stroke: var(--primary);
+      stroke-width: 2.2;
+      fill: none;
+      opacity: 0.9;
     }
 
     /* Form RSVP */
@@ -453,7 +452,6 @@
       background: #fafaf8;
       transition: border-color 0.3s;
     }
-    /* Blocco ridimensionamento manuale delle textarea */
     textarea {
       resize: none;
       overflow-y: auto;
@@ -463,7 +461,6 @@
       border-color: var(--primary);
     }
 
-    /* Griglia per adulti e bambini affiancati */
     .form-row {
       display: flex;
       gap: 15px;
@@ -628,10 +625,20 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON IMMAGINE FEDI -->
+        <!-- CERIMONIA CON SAGOMA FEDI TRASPARENTE -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <img src="fedi.png" alt="Fedi Nuziali" class="illustration-img">
+            <svg class="custom-svg-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Anello sinistro -->
+              <ellipse cx="40" cy="52" rx="22" ry="14" transform="rotate(-20 40 52)" />
+              <ellipse cx="40" cy="52" rx="17" ry="10" transform="rotate(-20 40 52)" stroke-width="1.5" />
+              <!-- Anello destro intrecciato -->
+              <ellipse cx="60" cy="52" rx="22" ry="14" transform="rotate(20 60 52)" />
+              <ellipse cx="60" cy="52" rx="17" ry="10" transform="rotate(20 60 52)" stroke-width="1.5" />
+              <!-- Riflessi luminosi -->
+              <path d="M 23 44 A 20 12 0 0 1 54 41" stroke-dasharray="2 3" opacity="0.6"/>
+              <path d="M 46 41 A 20 12 0 0 1 77 44" stroke-dasharray="2 3" opacity="0.6"/>
+            </svg>
           </div>
           <h3>Cerimonia</h3>
           <p><strong>Ore 10:30</strong></p>
@@ -649,10 +656,27 @@
           </a>
         </div>
 
-        <!-- RICEVIMENTO CON IMMAGINE CALICI -->
+        <!-- RICEVIMENTO CON SAGOMA CALICI TRASPARENTE -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <img src="calici.png" alt="Calici Brindisi" class="illustration-img">
+            <svg class="custom-svg-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Calice Sinistro -->
+              <path d="M 28 22 L 40 25 L 35 52 C 33 58, 25 57, 23 50 Z" />
+              <path d="M 29 52 L 24 80" />
+              <path d="M 16 80 C 22 79, 28 80, 32 81" />
+              <path d="M 27 34 C 32 35, 36 36, 38 36" opacity="0.6" stroke-width="1.5" />
+
+              <!-- Calice Destro -->
+              <path d="M 72 22 L 60 25 L 65 52 C 67 58, 75 57, 77 50 Z" />
+              <path d="M 71 52 L 76 80" />
+              <path d="M 84 80 C 78 79, 72 80, 68 81" />
+              <path d="M 73 34 C 68 35, 64 36, 62 36" opacity="0.6" stroke-width="1.5" />
+
+              <!-- Raggi brindisi -->
+              <path d="M 50 14 L 50 8" stroke-width="1.5" />
+              <path d="M 44 16 L 40 12" stroke-width="1.5" />
+              <path d="M 56 16 L 60 12" stroke-width="1.5" />
+            </svg>
           </div>
           <h3>Ricevimento</h3>
           <p><strong>Ore 13:00</strong></p>
@@ -684,7 +708,6 @@
           <input type="text" id="nome" name="nome" placeholder="Es. Mario Rossi" required>
         </div>
 
-        <!-- Specifico adulti e bambini -->
         <div class="form-row">
           <div>
             <label for="adulti">Numero Adulti</label>
@@ -709,7 +732,6 @@
           <textarea id="note" name="note" rows="2" placeholder="Es. Vegetariano, celiaco..."></textarea>
         </div>
 
-        <!-- Box per lasciare un messaggio agli sposi -->
         <div>
           <label for="messaggio">Lascia un messaggio per gli sposi 💌</label>
           <textarea id="messaggio" name="messaggio" rows="3" placeholder="Scrivi qui i tuoi auguri..."></textarea>
