@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maurizio & Antonella — Il nostro Matrimonio</title>
   
-  <!-- Favicon Arcobaleno per il Browser -->
+  <!-- Favicon Arcobaleno -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
 
   <!-- Google Fonts -->
@@ -16,25 +16,27 @@
   
   <style>
     :root {
-      --primary: #8aa083; /* Verde salvia satinato lucido */
-      --primary-dark: #5c6d57;
-      --accent: #d4af37;  /* Oro tenue */
-      --bg: #faf8f5;      /* Bianco caldo */
-      --text: #2c2c2c;
+      --primary-salvia: #6b7a65;  /* Colore busta verde salvia dell'ispirazione */
+      --primary-dark: #4e5a48;
+      --accent-gold: #c5a059;     /* Oro geometrico ed elegante */
+      --paper-bg: #fdfcf7;        /* Carta avorio/bianco caldo dell'invito */
+      --text-dark: #2c2c2c;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--paper-bg);
+      color: var(--text-dark);
       line-height: 1.6;
       text-align: center;
       overflow-x: hidden;
+      /* Trama carta sottile di sfondo per tutto il sito */
+      background-image: radial-gradient(#f0ece1 1px, transparent 0);
+      background-size: 16px 16px;
     }
 
-    /* Blocco scroll durante l'apertura */
     body.envelope-active {
       overflow: hidden;
       position: fixed;
@@ -47,7 +49,7 @@
       font-weight: 400;
     }
 
-    /* === OVERLAY BUSTA 3D CON ANTE E FIOCCO === */
+    /* === SCHERMATA INIZIALE: BUSTA VERDE SALVIA CON CORDONCINO E TAG === */
     #envelope-overlay {
       position: fixed;
       top: 0;
@@ -55,13 +57,14 @@
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      background: radial-gradient(circle at center, #faf6f0 0%, #dcd2c3 100%);
+      background: #e8e2d5;
+      background: radial-gradient(circle at center, #f4efe6 0%, #d8cebd 100%);
       z-index: 99999;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 1.2s ease, visibility 1.2s ease;
+      transition: opacity 1s ease, visibility 1s ease;
       perspective: 1400px;
     }
     
@@ -71,155 +74,129 @@
       pointer-events: none;
     }
 
-    /* Contenitore generale della Busta Chiusa */
-    .envelope-container {
+    .closed-envelope-wrapper {
       position: relative;
       width: 340px;
-      height: 480px;
+      height: 230px;
       max-width: 90vw;
-      max-height: 75vh;
-      background: #f4ede1;
-      border-radius: 8px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
-      border: 1px solid #d4c7b3;
-      transform-style: preserve-3d;
-      transition: opacity 0.8s ease 0.8s;
+      background: var(--primary-salvia);
+      border-radius: 6px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: transform 0.5s ease, opacity 0.8s ease;
     }
 
-    /* Biglietto interno nascosto sotto le ante */
-    .envelope-inner-card {
+    .closed-envelope-wrapper:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Patta superiore della busta */
+    .closed-envelope-flap {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
+      height: 115px;
+      background: #5d6c57;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Cordoncino rustico che avvolge la busta */
+    .twine-h {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: #b59b75;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transform: translateY(-50%);
+    }
+    .twine-v {
+      position: absolute;
+      top: 0;
+      left: 55%;
+      width: 6px;
       height: 100%;
-      background: #ffffff;
-      border-radius: 8px;
+      background: #b59b75;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.2);
+    }
+
+    /* Tag pendente con logo geometrico */
+    .envelope-tag {
+      position: absolute;
+      bottom: 25px;
+      left: 32%;
+      width: 65px;
+      height: 45px;
+      background: var(--paper-bg);
+      border: 1px solid var(--accent-gold);
+      border-radius: 2px;
+      box-shadow: 2px 5px 10px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 30px;
-      outline: 1px dashed var(--accent);
-      outline-offset: -12px;
-      z-index: 1;
-    }
-
-    .envelope-inner-card h3 {
-      font-family: 'Alex Brush', cursive;
-      font-size: 3rem;
+      transform: rotate(-8deg);
+      font-size: 0.6rem;
+      font-family: 'Cormorant Garamond', serif;
       color: var(--primary-dark);
-      margin: 10px 0;
+    }
+    .envelope-tag span {
+      font-family: 'Alex Brush', cursive;
+      font-size: 1.1rem;
+      color: var(--primary-salvia);
     }
 
-    /* Ante della busta (Porticine) */
-    .envelope-door {
+    /* FASE 1: APERTURA A LIBRO/BIGLIETTO INTERNO */
+    .opened-card-container {
       position: absolute;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(135deg, #eae2d3 0%, #dfd5c2 100%);
-      z-index: 4;
-      transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
-    }
-
-    .door-left {
-      left: 0;
-      border-radius: 8px 0 0 8px;
-      transform-origin: left center;
-      border-right: 1px solid #d0c2ad;
-    }
-
-    .door-right {
-      right: 0;
-      border-radius: 0 8px 8px 0;
-      transform-origin: right center;
-      border-left: 1px solid #fff;
-    }
-
-    /* QUANDO SI APRE: le ante ruotano verso l'esterno */
-    .envelope-container.open .door-left {
-      transform: rotateY(-110deg);
-    }
-
-    .envelope-container.open .door-right {
-      transform: rotateY(110deg);
-    }
-
-    .envelope-container.open {
+      width: 360px;
+      max-width: 92vw;
+      background: var(--paper-bg);
+      border-radius: 8px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      padding: 30px 20px;
+      border: 1px solid #e0d8cc;
       opacity: 0;
-    }
-
-    /* NASTRO IN RASO VERDE SALVIA */
-    .ribbon-v {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 44px;
-      height: 100%;
-      background: linear-gradient(90deg, #576753 0%, #8ca186 25%, #adbe98 50%, #8ca186 75%, #576753 100%);
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-      z-index: 5;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      cursor: pointer;
-    }
-
-    .ribbon-h {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 100%;
-      height: 44px;
-      background: linear-gradient(180deg, #576753 0%, #8ca186 25%, #adbe98 50%, #8ca186 75%, #576753 100%);
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-      z-index: 5;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      cursor: pointer;
-    }
-
-    /* FIOCCO REALISTICO IN RASO VERDE SALVIA CON SVG */
-    .bow-wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 180px;
-      height: 170px;
+      transform: scale(0.8);
+      pointer-events: none;
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 10;
-      cursor: pointer;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28));
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .bow-wrapper:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-
-    /* ANIMAZIONE SCIOGLIMENTO FIOCCO E APERTURA NASTRI */
-    #envelope-overlay.untie .bow-wrapper {
-      animation: untieBow 0.6s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
-    }
-
-    #envelope-overlay.untie .ribbon-v {
-      transform: translateX(-50%) scaleY(0);
+    /* Quando si clicca, la busta sparisce e appare il biglietto aperto */
+    #envelope-overlay.open-phase-1 .closed-envelope-wrapper {
       opacity: 0;
+      transform: scale(0.9);
+      pointer-events: none;
+    }
+    #envelope-overlay.open-phase-1 .opened-card-container {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
     }
 
-    #envelope-overlay.untie .ribbon-h {
-      transform: translateY(-50%) scaleX(0);
-      opacity: 0;
+    /* Stile interno del biglietto d'anteprima (uguale all'ispirazione) */
+    .preview-monogram-box {
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--accent-gold);
+      margin: 0 auto 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+    .preview-monogram {
+      font-family: 'Alex Brush', cursive;
+      font-size: 1.8rem;
+      color: var(--primary-salvia);
     }
 
-    @keyframes untieBow {
-      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-      50% { transform: translate(-50%, -50%) scale(1.2) rotate(12deg); opacity: 0.8; }
-      100% { transform: translate(-50%, -50%) scale(0) rotate(-30deg); opacity: 0; }
-    }
-
-    /* Testo indicativo */
     .envelope-hint {
       position: absolute;
       bottom: 25px;
@@ -228,8 +205,6 @@
       text-transform: uppercase;
       color: #6a5f53;
       animation: blinkText 2s infinite ease-in-out;
-      transition: opacity 0.4s ease;
-      z-index: 10;
     }
 
     @keyframes blinkText {
@@ -237,31 +212,39 @@
       50% { opacity: 1; }
     }
 
-    /* Hero Banner */
+    /* === STILE GLOBALE DEL SITO: EFFETTO CARTA INVITAZIONE FISICA === */
     header {
       position: relative;
-      padding: 100px 20px 80px;
-      background-color: #f2eee9;
-      border-bottom: 1px solid #e0d8ce;
+      padding: 90px 20px 70px;
+      background: var(--paper-bg);
+      border-bottom: 1px solid #e2dac9;
     }
+
+    /* Decorazione botanica superiore ispirata alla foto */
+    .botanical-header-art {
+      font-size: 1.5rem;
+      color: var(--primary-salvia);
+      margin-bottom: 10px;
+      letter-spacing: 5px;
+    }
+
     .names {
       font-family: 'Alex Brush', cursive;
       font-size: 4.8rem;
       color: var(--primary-dark);
-      margin-bottom: 10px;
-      text-transform: none;
-      font-weight: normal;
-      line-height: 1.2;
+      margin: 10px 0;
+      line-height: 1.1;
     }
     .date {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #666;
-      font-weight: bold;
+      color: #555;
+      font-weight: 500;
+      margin-top: 15px;
     }
 
-    /* Sezioni generali */
+    /* Sezioni */
     section {
       padding: 60px 20px;
       max-width: 800px;
@@ -271,55 +254,54 @@
       font-size: 2.5rem;
       color: var(--primary-dark);
       margin-bottom: 20px;
-      position: relative;
     }
     section h2::after {
       content: '';
       display: block;
-      width: 40px;
+      width: 45px;
       height: 1px;
-      background: var(--accent);
+      background: var(--accent-gold);
       margin: 15px auto 0;
     }
 
-    /* CARDS E FORM CON CORNICE E BOTANICA */
+    /* CARDS E FORM CON CORNICE GEOMETRICA E FOGLIAME BOTANICO (Stile Invito) */
     .card, form {
       position: relative;
-      background: linear-gradient(135deg, #ffffff 0%, #fcfbf9 100%);
-      padding: 35px 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-      border: 1px solid #e2ded6;
-      overflow: hidden;
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 4px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #dfd6c6;
+      margin-top: 20px;
     }
 
+    /* Cornice geometrica interna sottile color oro */
     .card::before, form::before {
       content: '';
       position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 8px;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.35);
       pointer-events: none;
     }
 
+    /* Angoli botanici decorativi ispirati all'ispirazione */
     .card::after, form::after {
-      content: '🌿';
+      content: '🌿 🍃';
       position: absolute;
-      top: 4px;
-      right: 10px;
-      font-size: 0.85rem;
-      opacity: 0.45;
-      filter: grayscale(30%);
+      top: 12px;
+      right: 15px;
+      font-size: 0.8rem;
+      opacity: 0.6;
       pointer-events: none;
     }
 
     .card h3 {
       font-size: 1.8rem;
-      margin-bottom: 10px;
       color: var(--primary-dark);
+      margin-bottom: 10px;
     }
 
     /* Form RSVP */
@@ -329,42 +311,43 @@
       gap: 15px;
       text-align: left;
     }
-    label { font-size: 0.9rem; font-weight: 500; }
+    label { font-size: 0.9rem; font-weight: 500; color: #444; }
     input, select, textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      border: 1px solid #d4ccbe;
+      border-radius: 4px;
       font-family: inherit;
-      background: #fafafa;
+      background: #faf8f3;
     }
     button {
-      background-color: var(--primary-dark);
+      background-color: var(--primary-salvia);
       color: white;
       border: none;
-      padding: 15px;
+      padding: 14px;
       font-size: 1rem;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
+      letter-spacing: 1px;
     }
-    button:hover { background-color: #4a5746; }
+    button:hover { background-color: var(--primary-dark); }
 
     /* Countdown */
     .countdown-container {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       margin: 30px auto;
       flex-wrap: wrap;
     }
     .countdown-box {
       background: #ffffff;
       padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid #eaeaea;
-      min-width: 90px;
+      border-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      border: 1px solid #dfd6c6;
+      min-width: 85px;
       text-align: center;
     }
     .countdown-number {
@@ -375,108 +358,68 @@
       display: block;
     }
     .countdown-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: #666;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
     /* Responsive Mobile */
     @media (max-width: 600px) {
-      .names { font-size: 2.5rem; }
-      .envelope-container { width: 290px; height: 420px; }
-      .envelope-inner-card h3 { font-size: 2.6rem; }
-      .bow-wrapper { width: 150px; height: 140px; }
+      .names { font-size: 3.2rem; }
+      .closed-envelope-wrapper { width: 300px; height: 200px; }
+      .opened-card-container { width: 310px; padding: 25px 15px; }
+      .card, form { padding: 30px 20px; }
       
-      .card, form { padding: 25px 15px; }
-
       .countdown-container { gap: 6px; flex-wrap: nowrap; }
       .countdown-box { min-width: 0; flex: 1; padding: 10px 4px; }
       .countdown-number { font-size: 1.5rem; }
-      .countdown-label { font-size: 0.6rem; letter-spacing: 1px; }
+      .countdown-label { font-size: 0.55rem; letter-spacing: 1px; }
     }
   </style>
 </head>
 <body class="envelope-active">
 
-  <!-- OVERLAY BUSTA CHIUSA CON ANTE E FIOCCO -->
+  <!-- OVERLAY INIZIALE: BUSTA SALVIA + BIGLIETTO APERTO PER 3 SECONDI -->
   <div id="envelope-overlay">
     
-    <div class="envelope-container" id="envelope-box">
-      <!-- Biglietto d'invito interno (visibile quando le ante si aprono) -->
-      <div class="envelope-inner-card">
-        <p style="font-size: 0.75rem; letter-spacing: 3px; color: #888; text-transform: uppercase;">Partecipazione<br>di<br>Nozze</p>
-        <h3>Maurizio<br>&<br>Antonella</h3>
-        <p style="font-size: 0.85rem; color: #666; font-weight: 500; margin-top: 5px;">9 OTTOBRE 2027</p>
-      </div>
-
-      <!-- Ante della Busta (Porticina sinistra e destra) -->
-      <div class="envelope-door door-left"></div>
-      <div class="envelope-door door-right"></div>
-
-      <!-- Nastri in raso Verde Salvia -->
-      <div class="ribbon-v" onclick="apriBustaAnte()"></div>
-      <div class="ribbon-h" onclick="apriBustaAnte()"></div>
-
-      <!-- FIOCCO REALISTICO IN RASO VERDE SALVIA (DISENATO IN VECTOR SVG CON SFUMATURE DI RASO) -->
-      <div class="bow-wrapper" onclick="apriBustaAnte()" title="Clicca per aprire l'invito">
-        <svg viewBox="0 0 200 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <!-- Sfumature Raso Salvia -->
-            <linearGradient id="satinMain" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#a4b89d" />
-              <stop offset="35%" stop-color="#82977b" />
-              <stop offset="70%" stop-color="#5a6e54" />
-              <stop offset="100%" stop-color="#42533d" />
-            </linearGradient>
-            <linearGradient id="satinHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#c5d6bf" />
-              <stop offset="50%" stop-color="#82977b" />
-              <stop offset="100%" stop-color="#495a44" />
-            </linearGradient>
-            <radialGradient id="knotGrad" cx="35%" cy="35%" r="60%">
-              <stop offset="0%" stop-color="#cbe0c4" />
-              <stop offset="40%" stop-color="#82977b" />
-              <stop offset="85%" stop-color="#42533d" />
-              <stop offset="100%" stop-color="#2a3826" />
-            </radialGradient>
-          </defs>
-
-          <!-- Coda Sinistra -->
-          <path d="M 90,85 C 75,105 50,135 25,165 C 40,160 55,150 65,145 C 75,155 85,165 95,170 C 95,135 93,105 90,85 Z" fill="url(#satinMain)" opacity="0.95" />
-          <!-- Coda Destra -->
-          <path d="M 110,85 C 125,105 150,135 175,165 C 160,160 145,150 135,145 C 125,155 115,165 105,170 C 105,135 107,105 110,85 Z" fill="url(#satinMain)" opacity="0.95" />
-
-          <!-- Asola Sinistra (Pieghe del raso) -->
-          <path d="M 95,80 C 70,30 15,35 12,65 C 10,95 70,95 95,80 Z" fill="url(#satinHighlight)" />
-          <path d="M 95,80 C 65,45 25,48 22,68 C 20,88 75,88 95,80 Z" fill="url(#satinMain)" opacity="0.7" />
-
-          <!-- Asola Destra (Pieghe del raso) -->
-          <path d="M 105,80 C 130,30 185,35 188,65 C 190,95 130,95 105,80 Z" fill="url(#satinHighlight)" />
-          <path d="M 105,80 C 135,45 175,48 178,68 C 180,88 125,88 105,80 Z" fill="url(#satinMain)" opacity="0.7" />
-
-          <!-- Nodo Centrale -->
-          <ellipse cx="100" cy="80" rx="18" ry="16" fill="url(#knotGrad)" />
-          <!-- Piega morbida sul nodo -->
-          <path d="M 90,75 Q 100,82 110,75" stroke="#334230" stroke-width="2" fill="none" opacity="0.5" />
-        </svg>
+    <!-- La Busta Chiusa con Cordoncino e Tag -->
+    <div class="closed-envelope-wrapper" onclick="apriInvitoCartaceo()" title="Clicca per aprire l'invito">
+      <div class="closed-envelope-flap"></div>
+      <div class="twine-h"></div>
+      <div class="twine-v"></div>
+      <div class="envelope-tag">
+        <span>M & A</span>
+        9·10·2027
       </div>
     </div>
 
-    <div class="envelope-hint" id="hint-text">Tocca il fiocco per aprire l'invito</div>
+    <!-- Il Biglietto Aperto (Fase successiva al click) -->
+    <div class="opened-card-container" id="opened-card">
+      <div class="preview-monogram-box">
+        <div class="preview-monogram">M&A</div>
+      </div>
+      <p style="font-size: 0.75rem; letter-spacing: 3px; color: #777; text-transform: uppercase;">Partecipazione di Nozze</p>
+      <h3 style="font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: var(--primary-dark); margin: 5px 0;">Maurizio & Antonella</h3>
+      <p style="font-size: 0.9rem; color: #555; margin-top: 8px;">Annunciano il loro matrimonio</p>
+      <p style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; letter-spacing: 2px; margin-top: 10px;">9 OTTOBRE 2027</p>
+    </div>
+
+    <div class="envelope-hint" id="hint-text">Tocca la busta per aprire l'invito</div>
   </div>
 
-  <!-- HERO -->
+  <!-- SITO PRINCIPALE: STILE INVITO CARTACEO -->
   <header>
+    <div class="botanical-header-art">🌿 ✧ 🌿</div>
     <div class="names">Maurizio & Antonella</div>
-    <p>Ci sposiamo!</p>
-    <p class="date" style="margin-top: 20px;">9 OTTOBRE 2027</p>
+    <p style="font-style: italic; color: #666; font-size: 1.1rem; margin-top: 5px;">Annunciano il loro matrimonio</p>
+    <p class="date">9 OTTOBRE 2027</p>
   </header>
   
   <!-- COUNTDOWN -->
-  <section style="padding: 20px 20px 40px; text-align: center;">
-    <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; color: #777; margin-bottom: 15px;">Mancano solo:</p>
+  <section style="padding: 20px 20px 30px; text-align: center;">
+    <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; color: #666; margin-bottom: 15px;">Il grande giorno tra:</p>
     <div class="countdown-container">
       <div class="countdown-box">
         <span id="days" class="countdown-number">00</span>
@@ -501,13 +444,13 @@
   <section id="dettagli">
     <h2>Dove & Quando</h2>
     
-    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 30px; align-items: center;">
       
       <!-- CERIMONIA -->
       <div class="card" style="width: 100%; max-width: 500px;">
         <h3>Cerimonia</h3>
-        <p><strong>Ore 10:30</strong></p>
-        <p style="margin-top: 8px; font-size: 0.95rem;">
+        <p style="color: #666; font-size: 0.9rem;">Ore 10:30</p>
+        <p style="margin-top: 10px; font-size: 1rem;">
           <strong>Chiesa Madre di<br>San Giacomo Maggiore Apostolo</strong>
         </p>
         <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
@@ -515,7 +458,7 @@
         </p>
         
         <a href="https://maps.google.com/?q=Chiesa+Madre+di+San+Giacomo+Maggiore+Apostolo+San+Valentino+Torio" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
+          <button type="button" style="margin-top: 15px; padding: 8px 16px; font-size: 0.85rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
             📍 Apri Indicazioni Stradali
           </button>
         </a>
@@ -524,8 +467,8 @@
       <!-- RICEVIMENTO -->
       <div class="card" style="width: 100%; max-width: 500px;">
         <h3>Ricevimento</h3>
-        <p><strong>Ore 13:00</strong></p>
-        <p style="margin-top: 8px; font-size: 0.95rem;">
+        <p style="color: #666; font-size: 0.9rem;">Ore 13:00</p>
+        <p style="margin-top: 10px; font-size: 1rem;">
           <strong>Villa Vittoria</strong>
         </p>
         <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">
@@ -533,7 +476,7 @@
         </p>
         
         <a href="https://maps.google.com/?q=Villa+Vittoria+Via+Cifelli+44+Boscotrecase" target="_blank" style="text-decoration: none;">
-          <button type="button" style="margin-top: 12px; padding: 8px 16px; font-size: 0.90rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
+          <button type="button" style="margin-top: 15px; padding: 8px 16px; font-size: 0.85rem; width: auto; display: inline-flex; align-items: center; gap: 6px;">
             📍 Apri Indicazioni Stradali
           </button>
         </a>
@@ -544,8 +487,8 @@
 
   <!-- CONFERMA PRESENZA (RSVP) -->
   <section id="rsvp">
-    <h2>Conferma<br>la tua Presenza</h2>
-    <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
+    <h2>Conferma Presenza</h2>
+    <p style="margin-bottom: 25px; font-size: 0.95rem; color: #555;">È gradita gentile conferma entro il 31 Agosto 2027.</p>
 
     <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
       <div>
@@ -569,49 +512,46 @@
 
   <!-- LISTA NOZZE / REGALO -->
   <section id="regalo">
-    <p style="font-size: 0.9rem;">Il regalo più bello sarà averti al nostro fianco.</p>
-    <p style="font-size: 0.9rem;">Siamo felicissimi di festeggiare<br>questo grande momento insieme!</p>
+    <p style="font-size: 0.95rem; font-style: italic; color: #555;">Il regalo più bello sarà averti al nostro fianco.</p>
     <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-      <p style="font-size: 0.90rem;">
+      <p style="font-size: 0.9rem;">
         <strong>IBAN:</strong> 
         <span id="iban-text" style="user-select: all; font-family: monospace;">IT00 X000 0000 0000 0000 0000 000</span>
       </p>
       
-      <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
+      <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 5px;">
         📋 Copia IBAN
       </button>
-      <p style="font-size: 0.75rem; color: #444; margin-top: 10px;">
+      <p style="font-size: 0.75rem; color: #666; margin-top: 8px;">
         Intestato a: Maurizio Rosa & Antonella Raffone
       </p>
     </div>
   </section>
 
-  <!-- Script Animazione Apertura Busta -->
+  <footer style="padding: 30px 20px; font-size: 0.8rem; color: #888; border-top: 1px solid #e2dac9;">
+    Maurizio & Antonella — 9 Ottobre 2027
+  </footer>
+
+  <!-- Script Logica Apertura (3 secondi di permanenza biglietto) -->
   <script>
     let giaAperto = false;
 
-    function apriBustaAnte() {
+    function apriInvitoCartaceo() {
       if (giaAperto) return;
       giaAperto = true;
 
       const overlay = document.getElementById('envelope-overlay');
-      const box = document.getElementById('envelope-box');
       const hint = document.getElementById('hint-text');
 
-      // 1. Scioglie il fiocco e fa sparire i nastri
-      overlay.classList.add('untie');
+      // 1. Nasconde la busta e mostra il biglietto aperto al centro
+      overlay.classList.add('open-phase-1');
       hint.style.opacity = '0';
 
-      // 2. Apre le ante a porticina dopo un brevissimo istante
+      // 2. Il biglietto resta visibile per esattamente 3 secondi (3000 ms), poi scompare l'overlay e si sblocca il sito
       setTimeout(() => {
-        box.classList.add('open');
-      }, 500);
-
-      // 3. Rimuove l'overlay completo e sblocca lo scroll della pagina
-      setTimeout(() => {
-        document.body.classList.remove('envelope-active');
         overlay.classList.add('hidden');
-      }, 3500);
+        document.body.classList.remove('envelope-active');
+      }, 3500); // 500ms transizione + 3000ms di lettura fissa
     }
   </script>
 
@@ -623,14 +563,12 @@
       navigator.clipboard.writeText(ibanValore).then(() => {
         const btn = document.getElementById("btn-copia");
         btn.innerText = "✅ Copiato!";
-        btn.style.backgroundColor = "#4a5746";
+        btn.style.backgroundColor = "var(--primary-dark)";
         
         setTimeout(() => {
           btn.innerText = "📋 Copia IBAN";
-          btn.style.backgroundColor = "var(--primary-dark)";
+          btn.style.backgroundColor = "var(--primary-salvia)";
         }, 2000);
-      }).catch(err => {
-        console.error("Errore durante la copia: ", err);
       });
     }
   </script>
