@@ -281,14 +281,14 @@
       transform: translateY(0);
     }
 
-    /* === HERO BANNER CON FOTO CENTRATA SULLA PARTE SUPERIORE (VOLTI) === */
+    /* === HERO BANNER CON FOTO PERFETTAMENTE CENTRATA SUI VOLTI (RESPONSIVE PC/MOBILE) === */
     header {
       position: relative;
       padding: 140px 20px 120px;
-      /* Impostiamo background-position su center top per focalizzare i volti */
+      /* background-position: center 25% blocca il punto focale sui volti sia da PC che da Smartphone */
       background-image: linear-gradient(rgba(251, 249, 244, 0.88), rgba(251, 249, 244, 0.88)), url('foto.jpg');
       background-size: cover;
-      background-position: center top;
+      background-position: center 28%;
       border-bottom: 1px solid #e0d8ce;
       border-top-left-radius: 7px;
       border-top-right-radius: 7px;
@@ -514,7 +514,7 @@
     <div class="page-border-decor decor-bl">🌿</div>
     <div class="page-border-decor decor-br">🌿</div>
 
-    <!-- HERO CON foto.jpg CENTRATA SULLA PARTE SUPERIORE -->
+    <!-- HERO CON foto.jpg E CENTRATURA BILANCIATA PC/MOBILE -->
     <header>
       <div class="names">Maurizio & Antonella</div>
       <p style="font-weight: 500; color: #555;">Ci sposiamo!</p>
