@@ -419,20 +419,21 @@
       color: var(--primary);
     }
 
-    /* Stile per le Illustrazioni Dettagliate in Stile Incisione */
+    /* Stile per le immagini fedi.png e calici.png con adattamento cromatico al verde salvia */
     .card-icon-container {
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .illustration-icon {
-      width: 70px;
-      height: 70px;
-      stroke: var(--primary);
-      stroke-width: 1.2;
-      fill: none;
-      opacity: 0.9;
+    .illustration-img {
+      width: 85px;
+      height: auto;
+      max-height: 85px;
+      object-fit: contain;
+      filter: sepia(0.6) hue-rotate(60deg) saturate(0.8) contrast(1.1) brightness(0.85);
+      mix-blend-mode: multiply;
+      opacity: 0.88;
     }
 
     /* Form RSVP */
@@ -627,27 +628,10 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON FEDI IN STILE INCISIONE -->
+        <!-- CERIMONIA CON IMMAGINE FEDI -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="illustration-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Anello di Sinistra -->
-              <ellipse cx="40" cy="52" rx="22" ry="14" transform="rotate(-18 40 52)" />
-              <ellipse cx="40" cy="52" rx="17" ry="10" transform="rotate(-18 40 52)" />
-              <!-- Dettagli incisione/riflesso anello sinistro -->
-              <path d="M 23 44 A 20 12 0 0 1 54 41" stroke-dasharray="2 3" opacity="0.6"/>
-              <path d="M 27 58 A 20 12 0 0 0 57 56" opacity="0.7"/>
-
-              <!-- Anello di Destra (intrecciato) -->
-              <ellipse cx="60" cy="52" rx="22" ry="14" transform="rotate(18 60 52)" />
-              <ellipse cx="60" cy="52" rx="17" ry="10" transform="rotate(18 60 52)" />
-              <!-- Dettagli incisione/riflesso anello destro -->
-              <path d="M 46 41 A 20 12 0 0 1 77 44" stroke-dasharray="2 3" opacity="0.6"/>
-              <path d="M 43 56 A 20 12 0 0 0 73 58" opacity="0.7"/>
-
-              <!-- Sovrapposizione/Incavo tra i due anelli per effetto 3D -->
-              <path d="M 44 43 C 48 46, 50 49, 48 54" opacity="0.8"/>
-            </svg>
+            <img src="fedi.png" alt="Fedi Nuziali" class="illustration-img">
           </div>
           <h3>Cerimonia</h3>
           <p><strong>Ore 10:30</strong></p>
@@ -665,33 +649,10 @@
           </a>
         </div>
 
-        <!-- RICEVIMENTO CON CALICI IN STILE INCISIONE -->
+        <!-- RICEVIMENTO CON IMMAGINE CALICI -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="illustration-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Calice Sinistro -->
-              <path d="M 28 22 L 40 25 L 35 52 C 33 58, 25 57, 23 50 Z" />
-              <path d="M 29 52 L 24 80" />
-              <path d="M 16 80 C 22 79, 28 80, 32 81" />
-              <!-- Livello liquido e rifinitura calice sinistro -->
-              <path d="M 27 34 C 32 35, 36 36, 38 36" opacity="0.6" />
-              <path d="M 26 26 C 27 32, 25 40, 24 48" stroke-dasharray="1 2" opacity="0.5" />
-
-              <!-- Calice Destro (Inclinato verso sinistra per il brindisi) -->
-              <path d="M 72 22 L 60 25 L 65 52 C 67 58, 75 57, 77 50 Z" />
-              <path d="M 71 52 L 76 80" />
-              <path d="M 84 80 C 78 79, 72 80, 68 81" />
-              <!-- Livello liquido e rifinitura calice destro -->
-              <path d="M 73 34 C 68 35, 64 36, 62 36" opacity="0.6" />
-              <path d="M 74 26 C 73 32, 75 40, 76 48" stroke-dasharray="1 2" opacity="0.5" />
-
-              <!-- Raggi di contatto del brindisi (scintille) -->
-              <path d="M 50 14 L 50 8" />
-              <path d="M 44 16 L 40 12" />
-              <path d="M 56 16 L 60 12" />
-              <path d="M 42 22 L 38 21" />
-              <path d="M 58 22 L 62 21" />
-            </svg>
+            <img src="calici.png" alt="Calici Brindisi" class="illustration-img">
           </div>
           <h3>Ricevimento</h3>
           <p><strong>Ore 13:00</strong></p>
