@@ -421,18 +421,17 @@
 
     /* Stile per Icone Vettoriali Minimaliste per Cerimonia e Ricevimento */
     .card-icon-container {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
     .card-icon {
-      width: 46px;
-      height: 46px;
+      width: 58px;
+      height: 58px;
       stroke: var(--primary);
-      stroke-width: 1.5;
+      stroke-width: 1.6;
       fill: none;
-      opacity: 0.9;
     }
 
     /* Form RSVP */
@@ -627,14 +626,18 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON ICONA CHIESA / FEDI -->
+        <!-- CERIMONIA CON FEDI INTRECCIATE -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="card-icon" viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Silhouette Chiesa Minimal -->
-              <path d="M32 8v10M27 13h10M32 18L14 30v24h36V30L32 18z" />
-              <path d="M28 54V40a4 4 0 0 1 8 0v14" />
-              <path d="M32 26a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <svg class="card-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Fede 1 (Sinistra) -->
+              <ellipse cx="40" cy="52" rx="26" ry="17" transform="rotate(-20 40 52)" />
+              <ellipse cx="40" cy="52" rx="20" ry="12" transform="rotate(-20 40 52)" stroke-width="1.2" />
+              <!-- Fede 2 (Destra intrecciata) -->
+              <ellipse cx="60" cy="52" rx="26" ry="17" transform="rotate(20 60 52)" />
+              <ellipse cx="60" cy="52" rx="20" ry="12" transform="rotate(20 60 52)" stroke-width="1.2" />
+              <!-- Bagliori / Scintille Oro -->
+              <path d="M50 18v8M42 22l16 0M38 32l5 5M62 32l-5 5" stroke="var(--accent)" stroke-width="1.8" />
             </svg>
           </div>
           <h3>Cerimonia</h3>
@@ -653,17 +656,18 @@
           </a>
         </div>
 
-        <!-- RICEVIMENTO CON ICONA CALICI BRINDISI -->
+        <!-- RICEVIMENTO CON CALICI CHE BRINDANO -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="card-icon" viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Calici Brindisi Minimal -->
-              <path d="M22 14l6 16c1 3 3 5 6 5s5-2 6-5l6-16H22z" />
-              <path d="M34 35v15M26 50h16" />
-              <!-- Calice 2 inclinato -->
-              <path d="M42 18l-5 13c-1 2-1 4 1 5" />
-              <!-- Bollicine / Scintille -->
-              <path d="M30 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM38 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="var(--accent)" stroke="none" />
+            <svg class="card-icon" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Calice Sinistro -->
+              <path d="M28 20l12 6c1 12-4 22-12 24l12-30z" />
+              <path d="M28 20c-5 10-2 22 7 26l-1 26M18 73h16" />
+              <!-- Calice Destro -->
+              <path d="M72 20l-12 6c-1 12 4 22 12 24l-12-30z" />
+              <path d="M72 20c5 10 2 22-7 26l1 26M82 73h-16" />
+              <!-- Raggi del brindisi in alto (Oro) -->
+              <path d="M50 10v7M40 14l3 6M60 14l-3 6" stroke="var(--accent)" stroke-width="2" />
             </svg>
           </div>
           <h3>Ricevimento</h3>
