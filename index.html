@@ -16,7 +16,8 @@
   
   <style>
     :root {
-      --primary: #5c6b57; /* Verde salvia */
+      --primary: #8aa083; /* Verde salvia satinato lucido */
+      --primary-dark: #5c6d57;
       --accent: #d4af37;  /* Oro tenue */
       --bg: #faf8f5;      /* Bianco caldo */
       --text: #2c2c2c;
@@ -79,7 +80,7 @@
       max-height: 75vh;
       background: #f4ede1;
       border-radius: 8px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
       border: 1px solid #d4c7b3;
       transform-style: preserve-3d;
       transition: opacity 0.8s ease 0.8s;
@@ -107,11 +108,11 @@
     .envelope-inner-card h3 {
       font-family: 'Alex Brush', cursive;
       font-size: 3rem;
-      color: var(--primary);
+      color: var(--primary-dark);
       margin: 10px 0;
     }
 
-    /* Ante della busta (Sinistra e Destra che si aprono come porte) */
+    /* Ante della busta (Porticine) */
     .envelope-door {
       position: absolute;
       top: 0;
@@ -147,21 +148,22 @@
     }
 
     .envelope-container.open {
-      opacity: 0; /* Scompare a fine apertura */
+      opacity: 0;
     }
 
-    /* NASTRO ORIZZONTALE E VERTICALE VERDE SALVIA SOPRA LE ANTE */
+    /* NASTRO IN RASO VERDE SALVIA */
     .ribbon-v {
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 40px;
+      width: 44px;
       height: 100%;
-      background: linear-gradient(90deg, #4d5c48 0%, var(--primary) 30%, #73836e 50%, var(--primary) 70%, #4d5c48 100%);
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      background: linear-gradient(90deg, #576753 0%, #8ca186 25%, #adbe98 50%, #8ca186 75%, #576753 100%);
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
       z-index: 5;
       transition: transform 0.6s ease, opacity 0.6s ease;
+      cursor: pointer;
     }
 
     .ribbon-h {
@@ -170,86 +172,35 @@
       left: 0;
       transform: translateY(-50%);
       width: 100%;
-      height: 40px;
-      background: linear-gradient(180deg, #4d5c48 0%, var(--primary) 30%, #73836e 50%, var(--primary) 70%, #4d5c48 100%);
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      height: 44px;
+      background: linear-gradient(180deg, #576753 0%, #8ca186 25%, #adbe98 50%, #8ca186 75%, #576753 100%);
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
       z-index: 5;
       transition: transform 0.6s ease, opacity 0.6s ease;
-    }
-
-    /* FIOCCO CENTRALE VERDE SALVIA REALISTICO */
-    .bow-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120px;
-      height: 120px;
-      z-index: 6;
       cursor: pointer;
-      transition: transform 0.3s ease;
     }
 
-    .bow-container:hover {
-      transform: translate(-50%, -50%) scale(1.06);
-    }
-
-    .bow-loop-left, .bow-loop-right {
-      position: absolute;
-      top: 22px;
-      width: 50px;
-      height: 42px;
-      background: linear-gradient(135deg, #74856f 0%, var(--primary) 60%, #445240 100%);
-      border-radius: 50% 50% 10% 50%;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-
-    .bow-loop-left {
-      left: 8px;
-      transform: rotate(-20deg);
-    }
-
-    .bow-loop-right {
-      right: 8px;
-      transform: scaleX(-1) rotate(-20deg);
-    }
-
-    .bow-tail-left, .bow-tail-right {
-      position: absolute;
-      bottom: 10px;
-      width: 22px;
-      height: 50px;
-      background: linear-gradient(180deg, var(--primary) 0%, #42503e 100%);
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .bow-tail-left {
-      left: 34px;
-      transform: rotate(18deg);
-    }
-
-    .bow-tail-right {
-      right: 34px;
-      transform: rotate(-18deg);
-    }
-
-    .bow-knot {
+    /* FIOCCO REALISTICO IN RASO VERDE SALVIA CON SVG */
+    .bow-wrapper {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 30px;
-      height: 30px;
-      background: radial-gradient(circle at 30% 30%, #859680 0%, var(--primary) 50%, #3a4736 100%);
-      border-radius: 40%;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.25);
+      width: 180px;
+      height: 170px;
+      z-index: 10;
+      cursor: pointer;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28));
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .bow-wrapper:hover {
+      transform: translate(-50%, -50%) scale(1.08);
     }
 
     /* ANIMAZIONE SCIOGLIMENTO FIOCCO E APERTURA NASTRI */
-    #envelope-overlay.untie .bow-container {
-      animation: untieBow 0.5s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    #envelope-overlay.untie .bow-wrapper {
+      animation: untieBow 0.6s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
     }
 
     #envelope-overlay.untie .ribbon-v {
@@ -264,7 +215,8 @@
 
     @keyframes untieBow {
       0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(0) rotate(-45deg); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.2) rotate(12deg); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(0) rotate(-30deg); opacity: 0; }
     }
 
     /* Testo indicativo */
@@ -295,7 +247,7 @@
     .names {
       font-family: 'Alex Brush', cursive;
       font-size: 4.8rem;
-      color: var(--primary);
+      color: var(--primary-dark);
       margin-bottom: 10px;
       text-transform: none;
       font-weight: normal;
@@ -317,7 +269,7 @@
     }
     section h2 {
       font-size: 2.5rem;
-      color: var(--primary);
+      color: var(--primary-dark);
       margin-bottom: 20px;
       position: relative;
     }
@@ -367,7 +319,7 @@
     .card h3 {
       font-size: 1.8rem;
       margin-bottom: 10px;
-      color: var(--primary);
+      color: var(--primary-dark);
     }
 
     /* Form RSVP */
@@ -387,7 +339,7 @@
       background: #fafafa;
     }
     button {
-      background-color: var(--primary);
+      background-color: var(--primary-dark);
       color: white;
       border: none;
       padding: 15px;
@@ -419,7 +371,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem;
       font-weight: 600;
-      color: var(--primary);
+      color: var(--primary-dark);
       display: block;
     }
     .countdown-label {
@@ -435,6 +387,7 @@
       .names { font-size: 2.5rem; }
       .envelope-container { width: 290px; height: 420px; }
       .envelope-inner-card h3 { font-size: 2.6rem; }
+      .bow-wrapper { width: 150px; height: 140px; }
       
       .card, form { padding: 25px 15px; }
 
@@ -463,16 +416,51 @@
       <div class="envelope-door door-right"></div>
 
       <!-- Nastri in raso Verde Salvia -->
-      <div class="ribbon-v"></div>
-      <div class="ribbon-h"></div>
+      <div class="ribbon-v" onclick="apriBustaAnte()"></div>
+      <div class="ribbon-h" onclick="apriBustaAnte()"></div>
 
-      <!-- Fiocco Centrale Verde Salvia -->
-      <div class="bow-container" onclick="apriBustaA Ante()" title="Clicca per aprire la busta">
-        <div class="bow-loop-left"></div>
-        <div class="bow-loop-right"></div>
-        <div class="bow-tail-left"></div>
-        <div class="bow-tail-right"></div>
-        <div class="bow-knot"></div>
+      <!-- FIOCCO REALISTICO IN RASO VERDE SALVIA (DISENATO IN VECTOR SVG CON SFUMATURE DI RASO) -->
+      <div class="bow-wrapper" onclick="apriBustaAnte()" title="Clicca per aprire l'invito">
+        <svg viewBox="0 0 200 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Sfumature Raso Salvia -->
+            <linearGradient id="satinMain" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a4b89d" />
+              <stop offset="35%" stop-color="#82977b" />
+              <stop offset="70%" stop-color="#5a6e54" />
+              <stop offset="100%" stop-color="#42533d" />
+            </linearGradient>
+            <linearGradient id="satinHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c5d6bf" />
+              <stop offset="50%" stop-color="#82977b" />
+              <stop offset="100%" stop-color="#495a44" />
+            </linearGradient>
+            <radialGradient id="knotGrad" cx="35%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#cbe0c4" />
+              <stop offset="40%" stop-color="#82977b" />
+              <stop offset="85%" stop-color="#42533d" />
+              <stop offset="100%" stop-color="#2a3826" />
+            </radialGradient>
+          </defs>
+
+          <!-- Coda Sinistra -->
+          <path d="M 90,85 C 75,105 50,135 25,165 C 40,160 55,150 65,145 C 75,155 85,165 95,170 C 95,135 93,105 90,85 Z" fill="url(#satinMain)" opacity="0.95" />
+          <!-- Coda Destra -->
+          <path d="M 110,85 C 125,105 150,135 175,165 C 160,160 145,150 135,145 C 125,155 115,165 105,170 C 105,135 107,105 110,85 Z" fill="url(#satinMain)" opacity="0.95" />
+
+          <!-- Asola Sinistra (Pieghe del raso) -->
+          <path d="M 95,80 C 70,30 15,35 12,65 C 10,95 70,95 95,80 Z" fill="url(#satinHighlight)" />
+          <path d="M 95,80 C 65,45 25,48 22,68 C 20,88 75,88 95,80 Z" fill="url(#satinMain)" opacity="0.7" />
+
+          <!-- Asola Destra (Pieghe del raso) -->
+          <path d="M 105,80 C 130,30 185,35 188,65 C 190,95 130,95 105,80 Z" fill="url(#satinHighlight)" />
+          <path d="M 105,80 C 135,45 175,48 178,68 C 180,88 125,88 105,80 Z" fill="url(#satinMain)" opacity="0.7" />
+
+          <!-- Nodo Centrale -->
+          <ellipse cx="100" cy="80" rx="18" ry="16" fill="url(#knotGrad)" />
+          <!-- Piega morbida sul nodo -->
+          <path d="M 90,75 Q 100,82 110,75" stroke="#334230" stroke-width="2" fill="none" opacity="0.5" />
+        </svg>
       </div>
     </div>
 
@@ -598,7 +586,7 @@
     </div>
   </section>
 
-  <!-- Script Animazione Apertura Busta a Porticina -->
+  <!-- Script Animazione Apertura Busta -->
   <script>
     let giaAperto = false;
 
@@ -639,7 +627,7 @@
         
         setTimeout(() => {
           btn.innerText = "📋 Copia IBAN";
-          btn.style.backgroundColor = "var(--primary)";
+          btn.style.backgroundColor = "var(--primary-dark)";
         }, 2000);
       }).catch(err => {
         console.error("Errore durante la copia: ", err);
@@ -657,7 +645,7 @@
 
       if (distance < 0) {
         clearInterval(countdownTimer);
-        document.querySelector(".countdown-container").innerHTML = "<p style='font-family: Cormorant Garamond; font-size: 1.8rem; color: var(--primary);'>È arrivato il grande giorno!</p>";
+        document.querySelector(".countdown-container").innerHTML = "<p style='font-family: Cormorant Garamond; font-size: 1.8rem; color: var(--primary-dark);'>È arrivato il grande giorno!</p>";
         return;
       }
 
