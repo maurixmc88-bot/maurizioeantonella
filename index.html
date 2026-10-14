@@ -17,10 +17,10 @@
   <style>
     :root {
       --primary: #5c6b57; /* Verde salvia */
+      --primary-dark: #455241;
       --accent: #d4af37;  /* Oro tenue */
       --bg: #faf8f5;      /* Bianco caldo */
       --text: #2c2c2c;
-      --envelope-shadow: rgba(0, 0, 0, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +34,7 @@
       overflow-x: hidden;
     }
 
-    /* Blocco scroll durante l'apertura della busta (Fix iOS/Safari) */
+    /* Blocco scroll durante l'apertura del fiocco */
     body.envelope-active {
       overflow: hidden;
       position: fixed;
@@ -47,236 +47,196 @@
       font-weight: 400;
     }
 
-    /* === SCHERMATA BUSTA REALISTICA === */
-    #envelope-overlay {
+    /* === OVERLAY INIZIALE CON NASTRO E FIOCCO === */
+    #ribbon-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      height: 100dvh; /* Dynamic Viewport Height per Safari/iPhone */
-      background: #e8e1d5; /* Fallback solido di copertura */
-      background: radial-gradient(circle at center, #fbf8f3 0%, #e8e1d5 100%);
+      height: 100dvh;
+      background: #f2ebe1;
+      background: radial-gradient(circle at center, #faf6f0 0%, #e6dccf 100%);
       z-index: 99999;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
-      perspective: 1200px;
+      perspective: 1000px;
     }
     
-    #envelope-overlay.hidden {
+    #ribbon-overlay.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    /* Effetto Luce Dorata di Sfondo */
-    .light-glow {
-      position: absolute;
-      width: 450px;
-      height: 450px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
-      border-radius: 50%;
-      animation: pulseGlow 3.5s infinite alternate ease-in-out;
-      pointer-events: none;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: scale(0.85); opacity: 0.5; }
-      100% { transform: scale(1.25); opacity: 0.9; }
-    }
-
-    /* STRUTTURA BUSTA REALISTICA 3D */
-    .envelope-wrapper {
+    /* Partecipazione / Carta centrale */
+    .invitation-card-wrapper {
       position: relative;
-      width: 360px;
-      height: 240px;
-      cursor: pointer;
-      transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .envelope-wrapper:hover {
-      transform: translateY(-5px) rotateX(4deg);
-    }
-
-    /* Base/Sfondo interno della busta */
-    .envelope-base {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #e5ddd0 0%, #d8cebd 100%);
-      border-radius: 8px;
-      box-shadow: 0 20px 45px var(--envelope-shadow), 0 5px 15px rgba(0,0,0,0.08);
-      border: 1px solid #d0c5b3;
-    }
-
-    /* BIGLIETTO D'INVITO INTERNO CON CORNICE ELEGANTE */
-    .envelope-letter {
-      position: absolute;
-      top: 12px;
-      left: 18px;
-      width: 324px;
-      height: 216px;
+      width: 340px;
+      height: 520px;
+      max-width: 90vw;
+      max-height: 80vh;
       background: #ffffff;
-      border-radius: 6px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      z-index: 1; /* Inizia DENTRO la tasca */
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e0d8cc;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      border: 1px solid #e8e2d8;
-      /* Passa sopra esattamente quando inizia a salire (a 0.6s) */
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.6s;
-      background-image: radial-gradient(#faf7f2 1px, transparent 0);
-      background-size: 12px 12px;
+      padding: 30px;
       outline: 1px dashed var(--accent);
-      outline-offset: -8px;
+      outline-offset: -12px;
+      overflow: hidden;
+      transition: transform 1.2s ease, opacity 1.2s ease;
     }
 
-    /* QUANDO LA BUSTA SI APRE */
-    .envelope-wrapper.open .envelope-letter {
-      transform: translateY(-140px); /* Sale completamente liberandosi dalla tasca */
-      z-index: 10; /* Passa in primo piano */
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .envelope-letter h3 {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
-      color: var(--primary);
-      line-height: 1.1;
-      margin: 5px 0;
-    }
-
-    /* LEMBI LATERALI E INFERIORE (TASCA) */
-    .envelope-pocket {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    /* Lembo sinistro */
-    .envelope-pocket::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #eee6d8 0%, #e0d5c3 100%);
-      clip-path: polygon(0 0, 50% 50%, 0 100%);
-      border-radius: 8px 0 0 8px;
-      filter: drop-shadow(2px 0 3px rgba(0,0,0,0.03));
-    }
-
-    /* Lembo destro */
-    .envelope-pocket::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(-135deg, #eae1d2 0%, #dbcfbd 100%);
-      clip-path: polygon(100% 0, 50% 50%, 100% 100%);
-      border-radius: 0 8px 8px 0;
-      filter: drop-shadow(-2px 0 3px rgba(0,0,0,0.03));
-    }
-
-    /* Lembo inferiore */
-    .envelope-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(0deg, #dfd4c1 0%, #ebdcc8 100%);
-      clip-path: polygon(0 100%, 50% 45%, 100% 100%);
-      z-index: 4;
-      border-radius: 0 0 8px 8px;
-      filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.05));
-    }
-
-    /* PATTA SUPERIORE MOBILE (FLAP) */
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, #f3ebd9 0%, #e4d8c3 100%);
-      clip-path: polygon(0 0, 50% 55%, 100% 0);
-      transform-origin: top center;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 5;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
-    }
-
-    /* SIGILLO IN CERALACCA */
-    .wax-seal {
-      position: absolute;
-      top: 132px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 72px;
-      height: 72px;
-      background: radial-gradient(circle at 30% 30%, #a3382b 0%, #6d1d14 70%, #4a100a 100%);
-      border-radius: 48% 52% 54% 46% / 51% 47% 53% 49%;
-      z-index: 6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 
-        0 6px 15px rgba(0,0,0,0.35),
-        inset 0 2px 4px rgba(255,255,255,0.3),
-        inset 0 -3px 6px rgba(0,0,0,0.5);
-      border: 1px solid #b84335;
-      transition: transform 0.5s ease, opacity 0.4s ease;
-      cursor: pointer;
-    }
-
-    .wax-seal span {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #dfb75e;
-      letter-spacing: 1px;
-      text-shadow: 
-        0 1px 1px rgba(0,0,0,0.8),
-        0 -1px 1px rgba(255,255,255,0.2);
-    }
-
-    /* ANIMAZIONE DI APERTURA */
-    .envelope-wrapper.open .envelope-flap {
-      transform: rotateX(180deg);
-      z-index: 1;
-    }
-
-    .envelope-wrapper.open .wax-seal {
-      transform: translate(-50%, -50%) scale(1.4);
+    .invitation-card-wrapper.open {
+      transform: scale(1.08);
       opacity: 0;
     }
 
-    /* Testo indicativo sotto la busta */
-    .envelope-hint {
-      margin-top: 25px;
+    .invitation-card-wrapper h3 {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3.2rem;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    /* NASTRO ORIZZONTALE E VERTICALE VERDE SALVIA */
+    .ribbon-v {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 100%;
+      background: linear-gradient(90deg, #4d5c48 0%, var(--primary) 30%, #73836e 50%, var(--primary) 70%, #4d5c48 100%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      z-index: 2;
+      transition: transform 1s ease 0.4s, opacity 0.8s ease 0.6s;
+    }
+
+    .ribbon-h {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 44px;
+      background: linear-gradient(180deg, #4d5c48 0%, var(--primary) 30%, #73836e 50%, var(--primary) 70%, #4d5c48 100%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      z-index: 2;
+      transition: transform 1s ease 0.4s, opacity 0.8s ease 0.6s;
+    }
+
+    /* FIOCCO CENTRALE VERDE SALVIA CON DETTAGLI E RIFLESSI */
+    .bow-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 130px;
+      height: 130px;
+      z-index: 3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .bow-container:hover {
+      transform: translate(-50%, -50%) scale(1.06);
+    }
+
+    /* Asole del fiocco (Sinistra e Destra) */
+    .bow-loop-left, .bow-loop-right {
+      position: absolute;
+      top: 25px;
+      width: 55px;
+      height: 45px;
+      background: linear-gradient(135deg, #74856f 0%, var(--primary) 60%, #445240 100%);
+      border-radius: 50% 50% 10% 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .bow-loop-left {
+      left: 10px;
+      transform: rotate(-20deg);
+    }
+
+    .bow-loop-right {
+      right: 10px;
+      transform: scaleX(-1) rotate(-20deg);
+    }
+
+    /* Code cascanti del fiocco */
+    .bow-tail-left, .bow-tail-right {
+      position: absolute;
+      bottom: 12px;
+      width: 24px;
+      height: 55px;
+      background: linear-gradient(180deg, var(--primary) 0%, #42503e 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .bow-tail-left {
+      left: 36px;
+      transform: rotate(18deg);
+    }
+
+    .bow-tail-right {
+      right: 36px;
+      transform: rotate(-18deg);
+    }
+
+    /* Nodo centrale del fiocco */
+    .bow-knot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: radial-gradient(circle at 30% 30%, #859680 0%, var(--primary) 50%, #3a4736 100%);
+      border-radius: 40%;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ANIMAZIONE DI SCIOGLIMENTO DEL FIOCCO */
+    #ribbon-overlay.untie .bow-container {
+      animation: untieBow 0.6s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    }
+
+    #ribbon-overlay.untie .ribbon-v {
+      transform: translateX(-50%) scaleY(0);
+      opacity: 0;
+    }
+
+    #ribbon-overlay.untie .ribbon-h {
+      transform: translateY(-50%) scaleX(0);
+      opacity: 0;
+    }
+
+    @keyframes untieBow {
+      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.3) rotate(15deg); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(0) rotate(-45deg); opacity: 0; }
+    }
+
+    /* Indicazione sotto la partecipazione */
+    .ribbon-hint {
+      position: absolute;
+      bottom: 25px;
       font-size: 0.75rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #7a7063;
       animation: blinkText 2s infinite ease-in-out;
-      transition: opacity 0.5s ease;
-    }
-
-    .envelope-wrapper.open ~ .envelope-hint {
-      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 10;
     }
 
     @keyframes blinkText {
@@ -286,6 +246,7 @@
 
     /* Hero Banner */
     header {
+      position: relative;
       padding: 100px 20px 80px;
       background-color: #f2eee9;
       border-bottom: 1px solid #e0d8ce;
@@ -328,7 +289,7 @@
       margin: 15px auto 0;
     }
 
-    /* CARDS E FORM CON CORNICE FLOREALE BOTANICA AI BORDI */
+    /* CARDS E FORM CON CORNICE E BOTANICA */
     .card, form {
       position: relative;
       background: linear-gradient(135deg, #ffffff 0%, #fcfbf9 100%);
@@ -339,7 +300,6 @@
       overflow: hidden;
     }
 
-    /* Cornice decorativa interna alle card e form */
     .card::before, form::before {
       content: '';
       position: absolute;
@@ -352,7 +312,6 @@
       pointer-events: none;
     }
 
-    /* Dettaglio floreale/foglia negli angoli alti delle card */
     .card::after, form::after {
       content: '🌿';
       position: absolute;
@@ -370,7 +329,7 @@
       color: var(--primary);
     }
 
-    /* Form Conferma (RSVP) */
+    /* Form RSVP */
     form {
       display: flex;
       flex-direction: column;
@@ -397,14 +356,6 @@
       transition: background 0.3s;
     }
     button:hover { background-color: #4a5746; }
-
-    /* Footer */
-    footer {
-      padding: 40px 20px;
-      font-size: 0.85rem;
-      color: #888;
-      border-top: 1px solid #eee;
-    }
 
     /* Countdown */
     .countdown-container {
@@ -438,17 +389,12 @@
       margin-top: 5px;
     }
 
-    /* Adattamento per dispositivi mobili */
+    /* Mobile Responsive */
     @media (max-width: 600px) {
       .names { font-size: 2.5rem; }
+      .invitation-card-wrapper { width: 290px; height: 440px; padding: 20px; }
+      .invitation-card-wrapper h3 { font-size: 2.6rem; }
       
-      /* Ridimensionamento Busta su mobile */
-      .envelope-wrapper { width: 310px; height: 210px; }
-      .envelope-letter { width: 280px; height: 188px; top: 10px; left: 15px; }
-      .envelope-letter h3 { font-size: 2.3rem; }
-      .wax-seal { top: 115px; width: 64px; height: 64px; }
-      .wax-seal span { font-size: 1.3rem; }
-
       .card, form { padding: 25px 15px; }
 
       .countdown-container { gap: 6px; flex-wrap: nowrap; }
@@ -460,37 +406,29 @@
 </head>
 <body class="envelope-active">
 
-  <!-- BUSTA D'INVITO 3D REALISTICA -->
-  <div id="envelope-overlay">
-    <div class="light-glow"></div>
+  <!-- OVERLAY SCHERMATA INIZIALE NASTRO E FIOCCO VERDE SALVIA -->
+  <div id="ribbon-overlay">
     
-    <div class="envelope-wrapper" onclick="apriBusta()">
-      <!-- Sfondo base interno -->
-      <div class="envelope-base"></div>
-      
-      <!-- Biglietto d'invito interno -->
-      <div class="envelope-letter">
-        <p style="font-size: 0.7rem; letter-spacing: 2px; color: #888; text-transform: uppercase;">Partecipazione di Nozze</p>
-        <h3>Maurizio<br>&<br>Antonella</h3>
-        <p style="font-size: 0.8rem; color: #666; font-weight: 500; margin-top: 4px;">9 OTTOBRE 2027</p>
-      </div>
+    <div class="invitation-card-wrapper" id="card-wrapper">
+      <p style="font-size: 0.75rem; letter-spacing: 3px; color: #888; text-transform: uppercase;">Partecipazione di Nozze</p>
+      <h3>Maurizio<br>&<br>Antonella</h3>
+      <p style="font-size: 0.85rem; color: #666; font-weight: 500; margin-top: 5px;">9 OTTOBRE 2027</p>
 
-      <!-- Lembi laterali della tasca -->
-      <div class="envelope-pocket"></div>
-      
-      <!-- Lembo inferiore -->
-      <div class="envelope-bottom"></div>
-      
-      <!-- Patta superiore (Flap) -->
-      <div class="envelope-flap"></div>
-      
-      <!-- Sigillo in Ceralacca -->
-      <div class="wax-seal" title="Apri l'invito">
-        <span>M&A</span>
+      <!-- Nastri in raso Verde Salvia -->
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+
+      <!-- Fiocco Centrale Interattivo -->
+      <div class="bow-container" onclick="sciogliFiocco()" title="Clicca per sciogliere il fiocco">
+        <div class="bow-loop-left"></div>
+        <div class="bow-loop-right"></div>
+        <div class="bow-tail-left"></div>
+        <div class="bow-tail-right"></div>
+        <div class="bow-knot"></div>
       </div>
     </div>
 
-    <div class="envelope-hint">Tocca il sigillo per aprire l'invito</div>
+    <div class="ribbon-hint" id="hint-text">Tocca il fiocco per aprire l'invito</div>
   </div>
 
   <!-- HERO -->
@@ -573,7 +511,6 @@
     <h2>Conferma<br>la tua Presenza</h2>
     <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
 
-    <!-- SOSTITUISCI L'URL ACTION CON IL TUO ENDPOINT FORMSPREE -->
     <form action="https://formspree.io/f/TUO_ID_FORMSPREE" method="POST">
       <div>
         <label for="nome">Nome e Cognome</label>
@@ -601,43 +538,48 @@
     <div class="card" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
       <p style="font-size: 0.90rem;">
         <strong>IBAN:</strong> 
-        <span id="iban-text" style="user-select: all; font-family: monospace;">IT00X0000000000000000000000</span>
+        <span id="iban-text" style="user-select: all; font-family: monospace;">IT00 X000 0000 0000 0000 0000 000</span>
       </p>
       
-      <!-- Pulsante per copiare l'IBAN -->
       <button type="button" onclick="copiaIBAN()" id="btn-copia" style="padding: 8px 18px; font-size: 0.9rem; margin-top: 5px;">
         📋 Copia IBAN
       </button>
-      <!-- Intestato a -->
       <p style="font-size: 0.75rem; color: #444; margin-top: 10px;">
         Intestato a: Maurizio Rosa & Antonella Raffone
       </p>
     </div>
   </section>
 
-  <!-- Script Animazione Busta -->
+  <!-- Script Animazione Scioglimento Fiocco -->
   <script>
     let giaAperto = false;
 
-    function apriBusta() {
+    function sciogliFiocco() {
       if (giaAperto) return;
       giaAperto = true;
 
-      const envelope = document.querySelector('.envelope-wrapper');
-      const overlay = document.getElementById('envelope-overlay');
-      
-      // Avvia l'animazione di apertura
-      envelope.classList.add('open');
+      const overlay = document.getElementById('ribbon-overlay');
+      const card = document.getElementById('card-wrapper');
+      const hint = document.getElementById('hint-text');
 
-      // Attende 3.5 secondi con il biglietto estratto prima di sbloccare la pagina
+      // Avvia animazione scioglimento
+      overlay.classList.add('untie');
+      hint.style.opacity = '0';
+
+      // Fa scomparire delicatamente la carta d'invito
+      setTimeout(() => {
+        card.classList.add('open');
+      }, 600);
+
+      // Rimuove l'overlay e sblocca lo scroll della pagina
       setTimeout(() => {
         document.body.classList.remove('envelope-active');
         overlay.classList.add('hidden');
-      }, 3500);
+      }, 1600);
     }
   </script>
 
-  <!-- Script JavaScript per Copia IBAN -->
+  <!-- Script Copia IBAN -->
   <script>
     function copiaIBAN() {
       const ibanValore = "IT00X0000000000000000000000"; 
@@ -657,7 +599,7 @@
     }
   </script>
 
-  <!-- Script JavaScript per Countdown -->
+  <!-- Script Countdown -->
   <script>
     const weddingDate = new Date("October 9, 2027 10:30:00").getTime();
 
