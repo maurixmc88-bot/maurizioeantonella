@@ -419,7 +419,7 @@
       color: var(--primary);
     }
 
-    /* Stile icone SVG in stile illustrazione tridimensionale */
+    /* Stile per le icone vettoriali chiare e trasparenti */
     .card-icon-container {
       margin-bottom: 12px;
       display: flex;
@@ -427,8 +427,12 @@
       align-items: center;
     }
     .custom-svg-icon {
-      width: 95px;
-      height: 95px;
+      width: 90px;
+      height: 90px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .custom-svg-icon {
+      transform: scale(1.05);
     }
 
     /* Form RSVP */
@@ -621,20 +625,25 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON FEDI SPESSE E TRIDIMENSIONALI (REPLICA PERFETTA) -->
+        <!-- CERIMONIA CON FEDI ELEGANTI, LIMPIDE E DEFINITE -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="custom-svg-icon" viewBox="0 0 120 100" fill="var(--primary)" stroke="var(--primary)">
-              <!-- ANELLO SINISTRO (Bordo esterno, ombra interna e fascia) -->
-              <path d="M 46 22 C 24 22 10 38 10 56 C 10 72 26 82 48 82 C 62 82 72 76 76 68 C 68 74 56 77 44 77 C 26 77 16 68 16 56 C 16 42 28 29 46 29 C 55 29 63 32 68 37 C 64 32 56 22 46 22 Z"/>
-              <path d="M 44 32 C 30 32 20 42 20 54 C 20 64 28 72 42 72 C 54 72 63 66 67 58 C 63 63 52 67 40 67 C 28 67 22 60 22 52 C 22 42 30 35 42 35 C 47 35 52 37 56 40 C 52 35 48 32 44 32 Z" fill-opacity="0.25"/>
-
-              <!-- ANELLO DESTRO INTRECCIATO IN PRIMO PIANO -->
-              <path d="M 72 34 C 54 34 38 48 38 64 C 38 80 54 90 76 90 C 98 90 110 76 110 60 C 110 44 94 34 72 34 Z M 74 84 C 58 84 46 76 46 64 C 46 54 56 42 72 42 C 86 42 98 50 98 62 C 98 74 88 84 74 84 Z"/>
+            <svg class="custom-svg-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Anello Sinistro -->
+              <ellipse cx="40" cy="52" rx="22" ry="14" transform="rotate(-15 40 52)" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
+              <ellipse cx="40" cy="52" rx="16" ry="9" transform="rotate(-15 40 52)" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-dasharray="2 2" opacity="0.8"/>
               
-              <!-- Riflessi di luce bianchi per effetto lucido dell'anello -->
-              <path d="M 44 24 C 28 24 16 36 14 50" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M 74 37 C 58 37 44 48 42 60" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Anello Destro Intrecciato -->
+              <ellipse cx="60" cy="52" rx="22" ry="14" transform="rotate(15 60 52)" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
+              <ellipse cx="60" cy="52" rx="16" ry="9" transform="rotate(15 60 52)" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-dasharray="2 2" opacity="0.8"/>
+
+              <!-- Dettaglio di sovrapposizione pulito -->
+              <path d="M 43 38 A 22 14 0 0 1 57 41" fill="none" stroke="var(--paper-bg)" stroke-width="4"/>
+              <path d="M 43 38 A 22 14 0 0 1 57 41" fill="none" stroke="var(--primary)" stroke-width="2.8"/>
+
+              <!-- Punto Luce Dorato -->
+              <circle cx="30" cy="42" r="2" fill="var(--accent)"/>
+              <circle cx="70" cy="42" r="2" fill="var(--accent)"/>
             </svg>
           </div>
           <h3>Cerimonia</h3>
@@ -653,32 +662,27 @@
           </a>
         </div>
 
-        <!-- RICEVIMENTO CON CALICI IN BRINDISI CON SCINTILLE -->
+        <!-- RICEVIMENTO CON CALICI ELEGANTI IN BRINDISI CON SCINTILLE -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <svg class="custom-svg-icon" viewBox="0 0 100 100" fill="none" stroke="var(--primary)" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="custom-svg-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <!-- Calice Sinistro -->
-              <path d="M 32 28 L 43 31 L 38 60 C 36 67, 27 65, 25 58 Z" stroke-width="2.2"/>
-              <path d="M 33 60 L 27 86" stroke-width="2.2"/>
-              <path d="M 17 86 C 22 85, 30 86, 35 87" stroke-width="2.2"/>
-              <path d="M 30 40 C 35 41, 39 42, 40 42" stroke-width="1.4" opacity="0.7"/>
-              <circle cx="34" cy="48" r="1" fill="var(--primary)" stroke="none"/>
-              <circle cx="32" cy="53" r="1.2" fill="var(--primary)" stroke="none"/>
+              <path d="M 32 28 L 43 31 L 38 60 C 36 67, 27 65, 25 58 Z" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linejoin="round"/>
+              <path d="M 33 60 L 27 86" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M 17 86 C 22 85, 30 86, 35 87" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M 30 40 C 35 41, 39 42, 40 42" stroke="var(--primary)" stroke-width="1.2" opacity="0.7"/>
 
               <!-- Calice Destro -->
-              <path d="M 68 28 L 57 31 L 62 60 C 64 67, 73 65, 75 58 Z" stroke-width="2.2"/>
-              <path d="M 67 60 L 73 86" stroke-width="2.2"/>
-              <path d="M 83 86 C 78 85, 70 86, 65 87" stroke-width="2.2"/>
-              <path d="M 70 40 C 65 41, 61 42, 60 42" stroke-width="1.4" opacity="0.7"/>
-              <circle cx="66" cy="48" r="1" fill="var(--primary)" stroke="none"/>
-              <circle cx="68" cy="53" r="1.2" fill="var(--primary)" stroke="none"/>
+              <path d="M 68 28 L 57 31 L 62 60 C 64 67, 73 65, 75 58 Z" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linejoin="round"/>
+              <path d="M 67 60 L 73 86" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M 83 86 C 78 85, 70 86, 65 87" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M 70 40 C 65 41, 61 42, 60 42" stroke="var(--primary)" stroke-width="1.2" opacity="0.7"/>
 
-              <!-- Scintille e Raggi Centrali del Brindisi -->
-              <path d="M 50 18 L 50 10" stroke-width="1.8"/>
-              <path d="M 43 20 L 38 15" stroke-width="1.8"/>
-              <path d="M 57 20 L 62 15" stroke-width="1.8"/>
-              <path d="M 50 24 C 51 23, 52 22, 53 22 C 52 22, 51 21, 50 20 C 49 21, 48 22, 47 22 C 48 22, 49 23, 50 24 Z" fill="var(--primary)" stroke="none"/>
-              <circle cx="58" cy="24" r="1" fill="var(--primary)" stroke="none"/>
+              <!-- Scintille Centrali del Brindisi (Oro e Salvia) -->
+              <path d="M 50 18 L 50 10" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 43 20 L 38 15" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 57 20 L 62 15" stroke-width="2" stroke-linecap="round"/>
+              <polygon points="50,20 52,24 56,24 53,26 54,30 50,27 46,30 47,26 44,24 48,24" fill="var(--accent)"/>
             </svg>
           </div>
           <h3>Ricevimento</h3>
