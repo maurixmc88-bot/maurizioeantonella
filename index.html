@@ -419,21 +419,21 @@
       color: var(--primary);
     }
 
-    /* Stile immagini PNG trasparenti coordinate al verde salvia */
+    /* Stile icone SVG in puro stile coordinato */
     .card-icon-container {
       margin-bottom: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .illustration-img {
+    .custom-svg-icon {
       width: 85px;
-      height: auto;
-      max-height: 85px;
-      object-fit: contain;
-      filter: sepia(0.6) hue-rotate(60deg) saturate(0.8) contrast(1.1) brightness(0.85);
-      mix-blend-mode: multiply;
-      opacity: 0.9;
+      height: 85px;
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     /* Form RSVP */
@@ -626,10 +626,20 @@
       
       <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center;">
         
-        <!-- CERIMONIA CON IMMAGINE FEDI.PNG -->
+        <!-- CERIMONIA CON FEDI IN STILE LINE ART DETTAGLIATO -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <img src="fedi.png" alt="Fedi Nuziali" class="illustration-img">
+            <svg class="custom-svg-icon" viewBox="0 0 100 100">
+              <!-- Anello Sinistro -->
+              <ellipse cx="40" cy="54" rx="22" ry="14" transform="rotate(-20 40 54)"/>
+              <path d="M 23 45 C 28 39, 42 41, 48 46" stroke-width="1.2" opacity="0.7"/>
+              <path d="M 27 61 C 32 64, 40 64, 45 61" stroke-width="1.2" opacity="0.5"/>
+              
+              <!-- Anello Destro Intrecciato -->
+              <ellipse cx="60" cy="54" rx="22" ry="14" transform="rotate(20 60 54)"/>
+              <path d="M 77 45 C 72 39, 58 41, 52 46" stroke-width="1.2" opacity="0.7"/>
+              <path d="M 73 61 C 68 64, 60 64, 55 61" stroke-width="1.2" opacity="0.5"/>
+            </svg>
           </div>
           <h3>Cerimonia</h3>
           <p><strong>Ore 10:30</strong></p>
@@ -647,10 +657,36 @@
           </a>
         </div>
 
-        <!-- RICEVIMENTO CON IMMAGINE CALICI.PNG -->
+        <!-- RICEVIMENTO CON CALICI IN STILE LINE ART IDENTICO AL TUO MODELLO -->
         <div class="card" style="width: 100%; max-width: 500px;">
           <div class="card-icon-container">
-            <img src="calici.png" alt="Calici Brindisi" class="illustration-img">
+            <svg class="custom-svg-icon" viewBox="0 0 100 100">
+              <!-- Calice Sinistro -->
+              <path d="M 32 28 L 43 31 L 38 60 C 36 67, 27 65, 25 58 Z"/>
+              <path d="M 33 60 L 27 86"/>
+              <path d="M 17 86 C 22 85, 30 86, 35 87"/>
+              <path d="M 30 40 C 35 41, 39 42, 40 42" stroke-width="1.2" opacity="0.7"/>
+              <!-- Bollicine calice sx -->
+              <circle cx="34" cy="48" r="0.8" fill="var(--primary)"/>
+              <circle cx="32" cy="53" r="1.1" fill="var(--primary)"/>
+
+              <!-- Calice Destro -->
+              <path d="M 68 28 L 57 31 L 62 60 C 64 67, 73 65, 75 58 Z"/>
+              <path d="M 67 60 L 73 86"/>
+              <path d="M 83 86 C 78 85, 70 86, 65 87"/>
+              <path d="M 70 40 C 65 41, 61 42, 60 42" stroke-width="1.2" opacity="0.7"/>
+              <!-- Bollicine calice dx -->
+              <circle cx="66" cy="48" r="0.8" fill="var(--primary)"/>
+              <circle cx="68" cy="53" r="1.1" fill="var(--primary)"/>
+
+              <!-- Scintille e Raggi Centrali del Brindisi -->
+              <path d="M 50 18 L 50 10" stroke-width="1.5"/>
+              <path d="M 43 20 L 38 15" stroke-width="1.5"/>
+              <path d="M 57 20 L 62 15" stroke-width="1.5"/>
+              <!-- Stella centrale -->
+              <path d="M 50 24 C 51 23, 52 22, 53 22 C 52 22, 51 21, 50 20 C 49 21, 48 22, 47 22 C 48 22, 49 23, 50 24 Z" fill="var(--primary)"/>
+              <circle cx="58" cy="24" r="0.8" fill="var(--primary)"/>
+            </svg>
           </div>
           <h3>Ricevimento</h3>
           <p><strong>Ore 13:00</strong></p>
