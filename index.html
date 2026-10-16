@@ -688,12 +688,20 @@
       <h2>Conferma<br>la tua Presenza</h2>
       <p style="margin-bottom: 25px;">Ti preghiamo di confermare<br>entro il 31 Agosto 2027.</p>
 
-      <form action="https://api.web3forms.com/submit" method="POST">
+      <!-- MESSAGGIO DI SUCCESSO PERSONALIZZATO -->
+      <div id="rsvp-success-message" style="display: none; background: #ffffff; padding: 35px 25px; border-radius: 12px; border: 1px solid var(--accent); box-shadow: 0 4px 20px rgba(0,0,0,0.04); text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">✨</div>
+        <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 10px;">Form compilato con successo!</h3>
+        <p style="font-size: 1.1rem; color: #444; margin-bottom: 15px;">Grazie</p>
+        <p style="font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: var(--primary); line-height: 1;">Maurizio & Antonella</p>
+      </div>
+
+      <!-- FORM RSVP -->
+      <form id="rsvp-form" action="https://api.web3forms.com/submit" method="POST">
 
         <!-- Configurazione Web3Forms -->
         <input type="hidden" name="access_key" value="9bfb49e5-9beb-41d0-b0f9-873a47bc7c20">
         <input type="hidden" name="subject" value="Nuova conferma RSVP Matrimonio">
-        <input type="hidden" name="redirect" value="https://maurixmc88-bot.github.io/maurizioantonella/">
 
         <div>
           <label for="nome">Nome e Cognome</label>
@@ -729,7 +737,7 @@
           <textarea id="messaggio" name="Messaggio per gli sposi" rows="3" placeholder="Scrivi qui i tuoi auguri..."></textarea>
         </div>
 
-        <button type="submit">Invia Conferma</button>
+        <button type="submit" id="submit-btn">Invia Conferma</button>
       </form>
     </section>
 
@@ -893,6 +901,50 @@
     }
 
     window.addEventListener('scroll', checkScroll);
+  </script>
+
+  <!-- Script JavaScript per Gestione Invio Form RSVP -->
+  <script>
+    const rsvpForm = document.getElementById('rsvp-form');
+    const successMessage = document.getElementById('rsvp-success-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    rsvpForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Impedisce il reindirizzamento standard della pagina
+      
+      submitBtn.innerText = "Invio in corso...";
+      submitBtn.disabled = true;
+
+      const formData = new FormData(rsvpForm);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Nasconde il form e mostra il messaggio di successo personalizzato
+          rsvpForm.style.display = 'none';
+          successMessage.style.display = 'block';
+
+          // Ricarica la pagina dopo 4 secondi riportando l'utente sul sito
+          setTimeout(() => {
+            window.location.reload();
+          }, 4000);
+        } else {
+          alert("Si è verificato un errore durante l'invio. Riprova più tardi.");
+          submitBtn.innerText = "Invia Conferma";
+          submitBtn.disabled = false;
+        }
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+        alert("Si è verificato un errore di connessione.");
+        submitBtn.innerText = "Invia Conferma";
+        submitBtn.disabled = false;
+      });
+    });
   </script>
 
   <!-- Script JavaScript per Copia IBAN -->
