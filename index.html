@@ -117,37 +117,15 @@
       100% { transform: scale(1.25); opacity: 0.9; }
     }
 
-    /* NUVOLE DI ANIMAZIONE */
-    .clouds-container {
+    /* CANVAS PER LE NUVOLE SOFFICI E REALISTICHE */
+    #clouds-canvas {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 5;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .envelope-wrapper.open ~ .clouds-container {
-      opacity: 1;
-    }
-
-    .cloud {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 50px;
-      filter: blur(8px);
-      animation: disperseCloud 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-
-    .cloud-1 { width: 180px; height: 60px; top: 35%; left: calc(50% - 140px); animation-delay: 0.2s; }
-    .cloud-2 { width: 220px; height: 75px; top: 48%; left: calc(50% - 100px); animation-delay: 0.1s; }
-    .cloud-3 { width: 160px; height: 50px; top: 40%; left: calc(50% - 20px); animation-delay: 0.3s; }
-
-    @keyframes disperseCloud {
-      0% { transform: scale(0.5); opacity: 0; }
-      40% { transform: scale(1.4); opacity: 0.9; }
-      100% { transform: scale(2.5) translateY(-30px); opacity: 0; }
     }
 
     /* STRUTTURA BUSTA REALISTICA 3D */
@@ -191,7 +169,7 @@
       align-items: center;
       padding: 20px;
       border: 1px solid #e8e2d8;
-      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.6s;
+      transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, z-index 0s ease 0.6s;
       background-image: radial-gradient(#faf7f2 1px, transparent 0);
       background-size: 12px 12px;
       outline: 1px dashed var(--accent);
@@ -319,7 +297,7 @@
       transform: translateY(0);
     }
 
-    /* === HERO BANNER CON FOTO PERFETTAMENTE CENTRATA SUI VOLTI === */
+    /* === HERO BANNER CON FOTO.JPG RIPRISTINATA === */
     header {
       position: relative;
       padding: 140px 20px 120px;
@@ -549,15 +527,11 @@
 </head>
 <body class="envelope-active">
 
-  <!-- BUSTA D'INVITO 3D REALISTICA CON NUVOLE -->
+  <!-- BUSTA D'INVITO 3D REALISTICA CON CANVAS NUVOLE SOFFICI -->
   <div id="envelope-overlay">
     <div class="light-glow"></div>
     
-    <div class="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
-    </div>
+    <canvas id="clouds-canvas"></canvas>
     
     <div class="envelope-wrapper" onclick="apriBusta()">
       <div class="envelope-base"></div>
@@ -589,7 +563,7 @@
     <div class="page-border-decor decor-bl">🌿</div>
     <div class="page-border-decor decor-br">🌿</div>
 
-    <!-- HERO CON foto.jpg E CENTRATURA BILANCIATA PC/MOBILE -->
+    <!-- HERO CON FOTO.JPG -->
     <header>
       <div class="names">Maurizio & Antonella</div>
       <p style="font-weight: 500; color: #555;">Ci sposiamo!</p>
@@ -779,8 +753,92 @@
 
   </div>
 
-  <!-- Script Animazione Busta e Scroll Reveal -->
+  <!-- Script Canvas per Nuvole Soffici e Volumetriche (Durata 5-6s) -->
   <script>
+    const canvas = document.getElementById('clouds-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let cloudClusters = [];
+    let animationRunning = false;
+    let globalAlpha = 1;
+
+    function initFluffyClouds() {
+      cloudClusters = [];
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      
+      // Generazione di soffici cumuli nuvolosi con sfumature realistiche
+      for (let i = 0; i < 28; i++) {
+        let clusterX = cx + (Math.random() - 0.5) * 200;
+        let clusterY = cy + (Math.random() - 0.5) * 120;
+        let speedX = (Math.random() - 0.5) * 2.2;
+        let speedY = (Math.random() - 0.6) * 2.2 - 0.5;
+        
+        let puffs = [];
+        let numPuffs = Math.floor(Math.random() * 5) + 5;
+        for (let p = 0; p < numPuffs; p++) {
+          puffs.push({
+            dx: (Math.random() - 0.5) * 90,
+            dy: (Math.random() - 0.5) * 55,
+            r: Math.random() * 55 + 40
+          });
+        }
+
+        cloudClusters.push({
+          x: clusterX,
+          y: clusterY,
+          vx: speedX,
+          vy: speedY,
+          puffs: puffs,
+          scale: 0.35
+        });
+      }
+    }
+
+    function drawFluffyClouds() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.globalAlpha = globalAlpha;
+
+      cloudClusters.forEach(cl => {
+        cl.x += cl.vx;
+        cl.y += cl.vy;
+        cl.scale += 0.014; // Espansione graduale e avvolgente
+
+        ctx.save();
+        ctx.translate(cl.x, cl.y);
+        ctx.scale(cl.scale, cl.scale);
+
+        // Disegno dei singoli bignè di nuvola con sfumatura radiale morbida e tridimensionale
+        cl.puffs.forEach(pf => {
+          let grad = ctx.createRadialGradient(pf.dx, pf.dy - 10, pf.r * 0.1, pf.dx, pf.dy, pf.r);
+          grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+          grad.addColorStop(0.6, 'rgba(250, 250, 245, 0.95)');
+          grad.addColorStop(1, 'rgba(235, 230, 220, 0.4)');
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(pf.dx, pf.dy, pf.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.restore();
+      });
+
+      ctx.restore();
+
+      if (animationRunning) {
+        requestAnimationFrame(drawFluffyClouds);
+      }
+    }
+
     let giaAperto = false;
 
     function apriBusta() {
@@ -791,13 +849,28 @@
       const overlay = document.getElementById('envelope-overlay');
       
       envelope.classList.add('open');
+      initFluffyClouds();
+      animationRunning = true;
+      requestAnimationFrame(drawFluffyClouds);
 
+      // Inizia il fade out delle nuvole verso i 4 secondi
+      setTimeout(() => {
+        let fadeInterval = setInterval(() => {
+          globalAlpha -= 0.04;
+          if (globalAlpha <= 0) {
+            globalAlpha = 0;
+            clearInterval(fadeInterval);
+            animationRunning = false;
+          }
+        }, 30);
+      }, 4000);
+
+      // Chiusura definitiva dell'overlay a circa 5.5 secondi totali
       setTimeout(() => {
         document.body.classList.remove('envelope-active');
         overlay.classList.add('hidden');
-        
         checkScroll();
-      }, 3500);
+      }, 4000);
     }
 
     function checkScroll() {
