@@ -27,12 +27,14 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
+      /* Sfondo Carta di Cotone / Cartoncino Pregiato (Texture CSS avanzata) */
       background-color: var(--paper-bg);
       background-image: 
-        radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0),
-        radial-gradient(rgba(92, 107, 87, 0.03) 1px, transparent 0);
-      background-size: 24px 24px, 12px 12px;
-      background-position: 0 0, 6px 6px;
+        radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0),
+        radial-gradient(rgba(92, 107, 87, 0.04) 1px, transparent 0),
+        linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(245,240,232,0.8) 100%);
+      background-size: 20px 20px, 12px 12px, 100% 100%;
+      background-position: 0 0, 6px 6px, 0 0;
       color: var(--text);
       line-height: 1.6;
       text-align: center;
@@ -47,8 +49,8 @@
       min-height: calc(100vh - 30px);
       border: 1px solid rgba(212, 175, 55, 0.45);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
     }
 
     /* Angoli botanici decorativi posizionati ai 4 angoli reali del documento */
@@ -134,7 +136,7 @@
 
     .cloud {
       position: absolute;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 50px;
       filter: blur(8px);
       animation: disperseCloud 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -146,8 +148,8 @@
 
     @keyframes disperseCloud {
       0% { transform: scale(0.5); opacity: 0; }
-      40% { transform: scale(1.4); opacity: 0.9; }
-      100% { transform: scale(2.5) translateY(-30px); opacity: 0; }
+      40% { transform: scale(1.4); opacity: 0.95; }
+      100% { transform: scale(2.8) translateY(-40px); opacity: 0; }
     }
 
     /* STRUTTURA BUSTA REALISTICA 3D */
